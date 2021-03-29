@@ -1,1 +1,6 @@
 __pycache__
+/egyfund/.env
+
+
+/venv/
+/db.sqlite3
