@@ -1,6 +1,4 @@
 from django.db import models
-
-# Create your models here.
 from .project import Project
 
 
@@ -9,7 +7,4 @@ class ProjectPicture(models.Model):
     project = models.ForeignKey(Project, on_delete=models.NOT_PROVIDED)
 
     def __str__(self):
-        return "img"
-
-
-
+        return f"{self.project.__str__()} img"

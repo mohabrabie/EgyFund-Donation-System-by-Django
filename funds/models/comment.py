@@ -1,8 +1,5 @@
 from django.db import models
 from accounts.models import CustomUser
-
-
-# Create your models here.
 from .project import Project
 
 
@@ -13,4 +10,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.project.__str__() + self.user.__str__() + self.comment
-
