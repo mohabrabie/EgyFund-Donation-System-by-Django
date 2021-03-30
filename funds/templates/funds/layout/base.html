@@ -7,7 +7,8 @@
     <title>{% block title %}EgyFund {% endblock %}</title>
 </head>
 <body>
-    <h1>Welcome to EgyFund</h1>
+    <h1>Welcome {{user.username}} to EgyFund</h1>
     <a href="{% url 'logout' %}"><i class="fa fa-user"></i> Logout</a>
+
 </body>
 </html>
