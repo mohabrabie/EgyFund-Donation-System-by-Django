@@ -1,3 +1,5 @@
+import os
+
 from pathlib import Path
 
 # For using env
@@ -32,7 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts'
+    'accounts',
+    'funds',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +129,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+# Configuring images upload
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Defining our custom model
 AUTH_USER_MODEL = 'accounts.CustomUser'
