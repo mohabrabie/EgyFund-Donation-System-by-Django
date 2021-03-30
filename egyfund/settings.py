@@ -154,3 +154,7 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
 # Used for expiring token after 1 day
 PASSWORD_RESET_TIMEOUT_DAYS = 1
+
+#* The URL or named URL pattern where requests are redirected for login when using the login_required()
+LOGIN_URL = '/accounts/login/'
+ 
