@@ -144,9 +144,17 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = env("EMAIL_HOST_USER")  # Added from youtube video
 EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+#* Just create new file named .env at egyfund/ and add the following with the same format:
+#* EMAIL_HOST="smtp.gmail.com"
+#* EMAIL_HOST_USER="YOUR_EMAIL"
+#* EMAIL_HOST_PASSWORD="YOUR_PASSWORD"
 # Don't forget to go to https://www.google.com/settings/security/lesssecureapps
 # and set Less secure app to True
 
 
 # Used for expiring token after 1 day
 PASSWORD_RESET_TIMEOUT_DAYS = 1
+
+#* The URL or named URL pattern where requests are redirected for login when using the login_required()
+LOGIN_URL = '/accounts/login/'
+ 

@@ -1,7 +1,5 @@
 from django.db import models
 from accounts.models import CustomUser
-
-# Create your models here.
 from .comment import Comment
 
 

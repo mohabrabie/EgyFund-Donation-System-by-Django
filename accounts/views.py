@@ -25,7 +25,7 @@ def register(request):
             user_form = CreateUserForm(request.POST)
             if user_form.is_valid():
 
-                user = user_form.save()
+                user = user_form.save(commit=False)
                 user.is_active = False
                 user.save()
 
@@ -56,7 +56,7 @@ def register(request):
 
 def login_user(request):
     if request.user.is_authenticated:
-        return redirect("home")
+        return redirect("egyfund")
     else:
         if request.method == "POST":
             username = request.POST.get("email")
@@ -64,7 +64,7 @@ def login_user(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect("home")
+                return redirect("egyfund")
             else:
                 messages.info(request, "Invalid Credentials!")
 
