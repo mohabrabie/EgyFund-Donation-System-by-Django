@@ -1,6 +1,6 @@
 from django.db import models
 from django import forms
-
+from django.utils import timezone
 
 from accounts.models import CustomUser
 from .category import Category
@@ -12,8 +12,8 @@ class Project(models.Model):
     details = models.TextField(max_length=100)
     is_featured = models.BooleanField(default=False)
     categories = models.ManyToManyField(Category)   # Project can have MANY categories
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(default=timezone.now)
     tags = models.ManyToManyField(Tag)  # * Project can have MANY tags
     user = models.ForeignKey(CustomUser, on_delete=models.NOT_PROVIDED)
 
