@@ -1,7 +1,4 @@
 from django.contrib import admin
-
-# Register your models here.
-
 from .models.project import Project
 from .models.category import Category
 from .models.tag import Tag
@@ -13,7 +10,18 @@ from .models.rating import Rating
 from .models.projectPicture import ProjectPicture
 
 
-admin.site.register(Project)
+class ProjectPictureInLine(admin.StackedInline):
+    model = ProjectPicture
+    extra = 1
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    inlines = [
+        ProjectPictureInLine,
+    ]
+
+
 admin.site.register(Category)
 admin.site.register(Tag)
 admin.site.register(Donation)
