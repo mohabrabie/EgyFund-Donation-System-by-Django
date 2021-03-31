@@ -12,55 +12,142 @@
 
     <title>Profile</title>
 </head>
-<body>
+<body>    
 	<div class="row py-5 px-4">
         <div class="col-md-5 mx-auto">
             <!-- Profile widget -->
             <div class="bg-white shadow rounded overflow-hidden">
                 <div class="px-4 pt-0 pb-4 cover">
                     <div class="media align-items-end profile-head">
-                        <div class="profile mr-3"><img src="{{ user.image.url }}" alt="..." width="130" class="rounded mb-2 img-thumbnail"><a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div>
+                        <div class="profile mr-3">
+                            {% if user.image %}
+                                <img src="{{ user.image.url }}" alt="profile_picture" width="130" class="rounded mb-2 img-thumbnail">
+                            {% else %}
+                                <img src="{% static 'img/profile_placeholder.png' %}" alt="profile_picture" width="130" class="rounded mb-2 img-thumbnail">
+                            {% endif %}
+                            <a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div>
                         <div class="media-body mb-5 text-white">
-                            <h4 class="mt-0 mb-0">Mark Williams</h4>
-                            <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>New York</p>
+                            {% if user.country %}
+                                <h4 class="mt-0 mb-0" style="text-transform: capitalize;">{{ user.username }}</h4>
+                                <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>{{user.country.name}}</p>
+                            {% else %}
+                                <h4 class="mt-0 mb-4" style="text-transform: capitalize;">{{ user.username }}</h4>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 <div class="bg-light p-4 d-flex justify-content-end text-center">
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
-                            <h5 class="font-weight-bold mb-0 d-block">215</h5><small class="text-muted"> <i class="fas fa-image mr-1"></i>Photos</small>
+                            <h5 class="font-weight-bold mb-0 d-block">{{ projects.count }}</h5>
+                            <small class="text-muted"> <i class="fas fa-project-diagram mr-1"></i><a href="#">Projects</a></small>
                         </li>
                         <li class="list-inline-item">
-                            <h5 class="font-weight-bold mb-0 d-block">745</h5><small class="text-muted"> <i class="fas fa-user mr-1"></i>Followers</small>
-                        </li>
-                        <li class="list-inline-item">
-                            <h5 class="font-weight-bold mb-0 d-block">340</h5><small class="text-muted"> <i class="fas fa-user mr-1"></i>Following</small>
+                            <h5 class="font-weight-bold mb-0 d-block">{{ donations.count }}</h5>
+                            <small class="text-muted"> <i class="fas fa-hand-holding-usd mr-1"></i><a href="#">Donations</a></small>
                         </li>
                     </ul>
                 </div>
-                <div class="px-4 py-3">
-                    <h5 class="mb-0">About</h5>
-                    <div class="p-4 rounded shadow-sm bg-light">
-                        <p class="font-italic mb-0">Web Developer</p>
-                        <p class="font-italic mb-0">Lives in New York</p>
-                        <p class="font-italic mb-0">Photographer</p>
-                    </div>
+                <!-- User info -->
+                <div class="container">
+                    <!-- Messages Section -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                                <div class="alert alert-primary" role="alert">
+                                {{ message }}
+                                </div>
+                            {% endif %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                <div class="alert alert-success" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endif %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endif %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                            <div class="alert alert-warning" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <!-- End of Messages section -->
+                    <form action="{% url 'profile' user.id %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="image">Update Image</label>
+                            <input type="file" class="form-control-file" id="image" name="image" accept="image/*">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="email">Email address</label>
+                          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="{{form.email.value}}" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{{form.username.value}}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="firstname">First Name</label>
+                            <input type="text" class="form-control" id="firstname" name="first_name" placeholder="First Name" value="{{form.first_name.value}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" class="form-control" id="lastname" name="last_name" placeholder="Last Name" value="{{form.last_name.value}}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mobile">Mobile Phone</label>
+                            <input type="text" class="form-control" id="mobile" name="phone_number" placeholder="Mobile" value="{{form.phone_number.value}}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birthdate">Birthday  {{form.birth_date.value}} </label>
+                            <input type="date" class="form-control" id="birthdate" name="birth_date" placeholder="Birthdate" value="{{ birthday }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="facebook">Facebook</label>
+                            {% if form.facebook_profile.value %}
+                                <input type="url" pattern="https://www.facebook.*" class="form-control" id="facebook" name="facebook_profile" placeholder="Facebook" value="{{form.facebook_profile.value}}">
+                            {% else %}
+                                <input type="url" pattern="https://www.facebook.*" class="form-control" id="facebook" name="facebook_profile" placeholder="Facebook">
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                    <select class="form-control" id="country" name="country">
+                                        <option value="" disabled selected >Please Choose Country...</option>
+                                            {% for country in countries %}
+                                                {% if user.country.code == country.code %}
+                                                    <option value="{{ country.code }}" selected>{{ country.name }}</option>
+                                                {% else %}
+                                                    <option value="{{ country.code }}">{{ country.name }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                    </select>
+                              </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mb-3" onclick="return validateUrl();">Submit</button>
+                      </form>
                 </div>
-                <div class="py-4 px-4">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="mb-0">Recent photos</h5><a href="#" class="btn btn-link text-muted">Show all</a>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 mb-2 pr-lg-1"><img src="https://images.unsplash.com/photo-1469594292607-7bd90f8d3ba4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
-                        <div class="col-lg-6 mb-2 pl-lg-1"><img src="https://images.unsplash.com/photo-1493571716545-b559a19edd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
-                        <div class="col-lg-6 pr-lg-1 mb-2"><img src="https://images.unsplash.com/photo-1453791052107-5c843da62d97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
-                        <div class="col-lg-6 pl-lg-1"><img src="https://images.unsplash.com/photo-1475724017904-b712052c192a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="" class="img-fluid rounded shadow-sm"></div>
-                    </div>
-                </div>
+                <!-- End of user info -->
             </div>
         </div>
     </div>
+    <!-- Adding the javascript -->
+    
 </body>
 </html>
 

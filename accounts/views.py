@@ -1,5 +1,6 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import EmailMessage
@@ -7,12 +8,15 @@ from django.urls import reverse
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
-
+from django_countries import countries
+from datetime import datetime
 
 # Create your views here.
 from .forms import CreateUserForm
 from .utils import account_activation_token
 from .models import CustomUser
+from funds.models.project import Project
+from funds.models.donation import Donation
 
 
 def register(request):
@@ -99,11 +103,57 @@ def verify(request, uidb64, token):
 
 
 @login_required
-def profile(request):
+@csrf_protect
+def profile(request, user_id):
+    # print(user_id)
+    user = get_object_or_404(CustomUser, id=user_id)
+    if request.method == "POST":
+        username = request.POST.get("username")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        phone_number = request.POST.get("phone_number")
+        birth_date = request.POST.get("birth_date")
+        facebook_profile = request.POST.get("facebook_profile")
+        country = request.POST.get("country")
+        image = None
+        if request.FILES:
+            image = request.FILES['image']
+            user.image = image
+        # Checking if data to update is valid
+        if not username or not first_name or not last_name or not phone_number:
+            messages.error(request, "Username, First name, Last name and Phone can't be empty!")
+        else:  # Form is valid
+            user.username = username
+            user.first_name = first_name
+            user.last_name = last_name
+            user.phone_number = phone_number
+            user.birth_date = birth_date
+            user.facebook_profile = facebook_profile
+            user.country = country
+            user.image = image
+            user.save()
+            messages.success(request, "Profile Updated Successfully.")
+        # print("------------------------------")
+        # print(username)
+        # print(first_name)
+        # print(last_name)
+        # print(phone_number)
+        print(datetime.strptime(birth_date, '%Y-%m-%d'))
+        # print(facebook_profile)
+        # print(country)
+        # print("------------------------------")
+
+    # Get
+    projects = Project.objects.filter(user=user)
+    donations = Donation.objects.filter(user=user)
+    user_form = CreateUserForm(instance=user)
     context = {
-        "user": request.user,
-        "projects": " ",
-        "donations": " "
+        "user": user,
+        "projects": projects,
+        "donations": donations,
+        "form": user_form,
+        "countries": countries,
+        "birthday": user.birth_date.__format__("%Y-%m-%d"),
     }
     return render(request, "accounts/profile.html", context)
 

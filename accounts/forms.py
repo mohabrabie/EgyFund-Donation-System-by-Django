@@ -11,7 +11,8 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = CustomUser
         # Specify the fields from the model you want added
-        fields = ["email", "first_name", "last_name", "username", "password1", "password2", "phone_number"]
+        fields = ["email", "first_name", "last_name", "username", "password1", "password2",
+                  "country", "phone_number", "birth_date", "facebook_profile"]
 
 
 
