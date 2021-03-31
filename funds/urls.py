@@ -1,12 +1,12 @@
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import home, projects
+from .views import home, project
 
 
 urlpatterns = [
     path('', home.index, name='egyfund'),
-    path('project/add', projects.create, name='project_add'),
+    path('project/add', project.create, name='project_add'),
 
 ]
 
