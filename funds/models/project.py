@@ -20,10 +20,10 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-    # Logic for raising error if end_date < start_date
-    def clean(self):
-        cleaned_data = super().clean()
-        start_date = cleaned_data.get("start_date")
-        end_date = cleaned_data.get("end_date")
-        if end_date < start_date:
-            raise forms.ValidationError("End date should be greater than start date.")
+    # # Logic for raising error if end_date < start_date
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     start_date = cleaned_data.get("start_date")
+    #     end_date = cleaned_data.get("end_date")
+    #     if end_date < start_date:
+    #         raise forms.ValidationError("End date should be greater than start date.")
