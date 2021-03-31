@@ -11,7 +11,7 @@ class Project(models.Model):
     title = models.CharField(max_length=100)
     details = models.TextField(max_length=100)
     is_featured = models.BooleanField(default=False)
-    categories = models.ManyToManyField(Category)   # Project can have MANY categories
+    category = models.ForeignKey(Category, related_name="projects", on_delete=models.CASCADE)   # Project can have MANY categories
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(default=timezone.now)
     tags = models.ManyToManyField(Tag)  # * Project can have MANY tags
