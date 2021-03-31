@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Project</title>
+</head>
+<body>
+    <form action="{% block form_action %} {% url 'project_add' %} {% endblock %}" method="POST" enctype="multipart/form-data">
+        
+        {% csrf_token %}
+        {% for hidden in project_form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+    
+        {{ project_form.as_p }}
+    
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form }}
+        {% endfor %}
+    
+        <input type="submit" value="{% block btn_value %} Create {% endblock %}"/>
+    </form>
+</body>
+</html>
