@@ -77,20 +77,6 @@ def logout_user(request):
     return redirect("login")
 
 
-@login_required
-def index(request):
-    context = {
-        "user": request.user
-    }
-    return render(request, "accounts/index.html", context)
-
-
-# @login_required(login_url='/myAuth/')
-@login_required
-def test(request):
-    return HttpResponse("test is working!")
-
-
 def verify(request, uidb64, token):
     try:
         user_id = force_text(urlsafe_base64_decode(uidb64))
@@ -110,3 +96,27 @@ def verify(request, uidb64, token):
         pass
 
     return redirect('login')
+
+
+@login_required
+def profile(request):
+    context = {
+        "user": request.user,
+        "projects": " ",
+        "donations": " "
+    }
+    return render(request, "accounts/profile.html", context)
+
+
+@login_required
+def index(request):
+    context = {
+        "user": request.user
+    }
+    return render(request, "accounts/index.html", context)
+
+
+# @login_required(login_url='/myAuth/')
+@login_required
+def test(request):
+    return HttpResponse("test is working!")
