@@ -53,7 +53,10 @@ a:hover{
           <a href="#">Profile</a>
         </li>
         <li class="menulist">
-          <a href="#">LogOut</a>
+          <a href="{% url 'logout' %}">LogOut</a>
+        </li>
+        <li class="menulist">
+          <a href="{% url 'project_add' %}">New Project</a>
         </li>
       </ul>
   </div>
