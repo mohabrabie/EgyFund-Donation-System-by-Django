@@ -113,7 +113,7 @@ def profile(request, user_id):
         projects = Project.objects.filter(user=user)
         context = {
             "user": user,
-            "projects": projects,
+            "projects_count": projects.count,
             "birthday": user.birth_date.strftime("%Y-%m-%d") if user.birth_date else None
         }
         return render(request, "accounts/profile_guest.html", context)
@@ -157,8 +157,8 @@ def profile(request, user_id):
     user_form = CreateUserForm(instance=user)
     context = {
         "user": user,
-        "projects": projects,
-        "donations": donations,
+        "projects_count": projects.count,
+        "donations_count": donations.count,
         "form": user_form,
         "countries": countries,
         "birthday": user.birth_date.strftime("%Y-%m-%d") if user.birth_date else None
@@ -178,3 +178,25 @@ def index(request):
 @login_required
 def test(request):
     return HttpResponse("test is working!")
+
+
+@login_required
+def user_projects(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    projects = Project.objects.filter(user=user)
+    context = {
+        "user": user,
+        "projects": projects
+    }
+    return render(request, "accounts/profile_projects.html", context)
+
+
+@login_required
+def user_donations(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    donations = Donation.objects.filter(user=user)
+    context = {
+        "user": user,
+        "donations": donations
+    }
+    return render(request, "accounts/profile_donations.html", context)

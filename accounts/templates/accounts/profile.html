@@ -27,11 +27,16 @@
                             {% endif %}
                             <a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div>
                         <div class="media-body mb-5 text-white">
+                            <h4 class="mt-0 mb-0" style="text-transform: capitalize;">{{ user.username }}</h4>
                             {% if user.country %}
-                                <h4 class="mt-0 mb-0" style="text-transform: capitalize;">{{ user.username }}</h4>
-                                <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>{{user.country.name}}</p>
+                                <p class="small mb-1"> <i class="fas fa-map-marker-alt mr-2"></i>{{user.country.name}}</p>
+                            {% endif %}
+                            {% if user.facebook_profile %}
+                                <p class="small mb-4"> <i class="fab fa-facebook-f mr-2"></i>
+                                    <a href="{{ user.facebook_profile }}">Facebook</a>
+                                </p>
                             {% else %}
-                                <h4 class="mt-0 mb-4" style="text-transform: capitalize;">{{ user.username }}</h4>
+                                <div class="mb-4"></div>
                             {% endif %}
                         </div>
                     </div>
@@ -39,11 +44,11 @@
                 <div class="bg-light p-4 d-flex justify-content-end text-center">
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
-                            <h5 class="font-weight-bold mb-0 d-block">{{ projects.count }}</h5>
-                            <small class="text-muted"> <i class="fas fa-project-diagram mr-1"></i><a href="#">Projects</a></small>
+                            <h5 class="font-weight-bold mb-0 d-block">{{ projects_count }}</h5>
+                            <small class="text-muted"> <i class="fas fa-project-diagram mr-1"></i><a href="{% url 'accounts_projects' user.id %}">Projects</a></small>
                         </li>
                         <li class="list-inline-item">
-                            <h5 class="font-weight-bold mb-0 d-block">{{ donations.count }}</h5>
+                            <h5 class="font-weight-bold mb-0 d-block">{{ donations_count }}</h5>
                             <small class="text-muted"> <i class="fas fa-hand-holding-usd mr-1"></i><a href="#">Donations</a></small>
                         </li>
                     </ul>

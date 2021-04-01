@@ -44,15 +44,41 @@
                 <div class="bg-light p-4 d-flex justify-content-end text-center">
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
-                            <h5 class="font-weight-bold mb-0 d-block">{{ projects_count }}</h5>
-                            <small class="text-muted"> <i class="fas fa-project-diagram mr-1"></i><a href="#">Projects</a></small>
+                            <h5 class="font-weight-bold mb-0 d-block">{{ donations.count }}</h5>
+                            <small class="text-muted"> <i class="fas fa-hand-holding-usd mr-1"></i><a href="#">Donations</a></small>
                         </li>
                     </ul>
                 </div>
                 <!-- User info -->
                 <div class="container">
+                    <div class="pb-2"> <a href="#">Back</a> </div>
                     
-                   
+                    {% if donations.count == 0 %}
+                    <div class="pb-4"><h4>No projects funded yet.</h4></div>
+                    {% else %}
+                    <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Project Title</th>
+                            <th scope="col">Donation</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Project Link</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for donation in donations %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ donation.project.title }}</td>
+                                    <td>{{ donation.donation }}$</td>
+                                    <td>{{ donation.date }}</td>
+                                    <td><a href="#">Visit</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                    {% endif %}
                 </div>
                 <!-- End of user info -->
             </div>
