@@ -7,14 +7,19 @@ from .category import Category
 from .tag import Tag
 
 
+def get_default_category():
+    """ get a default value for Category; create new Category if not available """
+    return Category.objects.get_or_create(name="donation-based")[0].id
+
+
 class Project(models.Model):
     title = models.CharField(max_length=100)
     details = models.TextField(max_length=100)
     is_featured = models.BooleanField(default=False)
-    categories = models.ManyToManyField(Category)   # Project can have MANY categories
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='projects', default=get_default_category)
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(default=timezone.now)
-    tags = models.ManyToManyField(Tag)  # * Project can have MANY tags
+    tags = models.ManyToManyField(Tag) 
     user = models.ForeignKey(CustomUser, on_delete=models.NOT_PROVIDED)
 
     def __str__(self):
