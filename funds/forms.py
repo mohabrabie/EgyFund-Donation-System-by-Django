@@ -17,6 +17,7 @@ class ProjectForm(forms.ModelForm):
             'details',
             'category',
             'tags',
+            'total_target',
             'start_date',
             'end_date',
         ]
@@ -25,6 +26,7 @@ class ProjectForm(forms.ModelForm):
             'details': _('Details'),
             'category': _('Category'),
             'tags': _('Tags'),
+            'total_target': _('Total Target'),
             'start_date': _('Start Date'),
             'end_date': _('End Date'),
         }
