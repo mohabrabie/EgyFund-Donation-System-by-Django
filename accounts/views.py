@@ -31,7 +31,7 @@ def register(request):
 
                 user = user_form.save(commit=False)
                 #
-                # user.is_active = False
+                user.is_active = False
                 user.save()
 
                 uid = urlsafe_base64_encode(force_bytes(user.pk))

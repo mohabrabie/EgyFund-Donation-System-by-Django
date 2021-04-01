@@ -1,10 +1,13 @@
-from django.shortcuts import render, redirect
+from django.db.models import Sum, Avg
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 
 from funds.forms import ProjectForm, ProjectPictureForm
 from funds.models.project import Project
 from funds.models.projectPicture import ProjectPicture
+from funds.models.rating import Rating
+from funds.models.donation import Donation
 
 
 #TODO Find a way to give the user an option to add another image on demand & not restrict him to a no.
@@ -53,3 +56,21 @@ def show_all(request):
 #     else:
 #         project_form = ProjectForm()
 #         return render(request, 'funds/add.html', {'form': project_form}, renderer=None)
+
+
+
+@login_required
+def read(request, project_id):
+    # query to get data about specific item
+    project = get_object_or_404(Project, id=project_id)
+    ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
+    images = ProjectPicture.objects.filter(project=project)
+    donations = Donation.objects.filter(project=project).aggregate(Sum('donation'))
+
+    context = {'project_data': project,
+               'project_images': images,
+               'project_ratings': ratings,
+               'project_donations': donations}
+
+    # render template to display the data
+    return render(request, 'funds/read_project.html', context)

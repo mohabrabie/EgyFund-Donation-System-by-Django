@@ -1,0 +1,273 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    {% load static %}-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>-->
+<!--        Project Page-->
+<!--    </h1>-->
+
+<!--    <div>-->
+<!--        {{ project_data.id }}-->
+<!--    </div>-->
+<!--<div>-->
+<!--        {{ project_data.title }}-->
+<!--    </div>-->
+<!--<div>-->
+<!--        {{ project_data.details }}-->
+<!--    </div>-->
+<!--<div>-->
+<!--        {{ project_data.is_featured }}-->
+<!--    </div>-->
+<!--<div>-->
+
+<!--        {% for category in project_data.categories.all %}-->
+<!--        <div>-->
+<!--             {{ category }}-->
+<!--        </div>-->
+
+<!--        {% endfor %}-->
+
+<!--    </div>-->
+<!--<div>-->
+<!--        {{ project_data.start_date }}-->
+<!--    </div>-->
+<!--<div>-->
+<!--        {{ project_data.end_date }}-->
+<!--    </div>-->
+<!--<div>-->
+<!--         {% for category in project_data.tags.all %}-->
+<!--        <div>-->
+<!--             {{ category }}-->
+<!--        </div>-->
+
+<!--        {% endfor %}-->
+<!--    </div>-->
+
+<!--<div>-->
+<!--        {{ project_data.user.username}}-->
+<!--    </div>-->
+
+<!--<div>-->
+<!--        {{ project_data.rating.rating}}-->
+<!--    </div>-->
+
+<!--<br>-->
+<!--<br>-->
+<!--    <div>-->
+<!--        <h1>Images</h1>-->
+<!--    </div>-->
+<!--    {% for project_image in project_images %}-->
+<!--       <div>-->
+
+<!--			<img src="{{ project_image.image.url }}" />-->
+
+<!--       </div>-->
+<!--    {% endfor %}-->
+
+<!--    <div>-->
+<!--        <h1>Ratings</h1>-->
+<!--    </div>-->
+<!--    {% for project_rating in project_ratings %}-->
+<!--       <div>-->
+
+<!--			<p> Rating: {{ project_rating.rating }} -> user: {{ project_rating.user.username }}</p>-->
+
+<!--       </div>-->
+<!--    {% endfor %}-->
+
+<!--    <div>-->
+<!--        <h1>Donations</h1>-->
+<!--    </div>-->
+<!--    {% for project_donation in project_donations %}-->
+<!--       <div>-->
+
+<!--			<p> Donation: {{ project_donation.donation }} -> user: {{ project_donation.user.username }}</p>-->
+
+<!--       </div>-->
+<!--    {% endfor %}-->
+
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>{{ project_data.title }}</title>
+
+  <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        body{
+        margin-top: 70px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4 font-weight-bold">{{ project_data.title }}</h1>
+
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="#">{{ project_data.user.username }}</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>Start Date : {{ project_data.start_date }}  |  End Date : {{ project_data.end_date }}</p>
+
+        <hr>
+
+         <!-- Details -->
+
+          <div class="card my-4">
+            <h2 class="card-header">Details</h2>
+            <div class="card-body">
+              <h5 class="font-weight-bold">Description:</h5>
+              {{ project_data.details }}
+              <hr>
+              <p><span class="font-weight-bold">Total Donations: </span>{{ project_donations.donation__sum }} $ </p>
+              <hr>
+              <p><span class="font-weight-bold"> Rating:  </span> {{ project_ratings.rating__avg }} / 5.0 </p>
+            </div>
+          </div>
+
+        <hr>
+
+        <!-- Preview Image -->
+
+        <h2 class="font-weight-light text-center text-lg-left mt-4 mb-0"> Gallery</h2>
+
+        <hr class="mt-2 mb-5">
+
+        <div class="row text-center text-lg-left">
+
+
+          {% for project_image in project_images %}
+              <div class="col-lg-4 col-md-4 col-6">
+                  <img src="{{ project_image.image.url }}" class="img-fluid " style="border: 10px white solid">
+              </div>
+          {% endfor %}
+
+
+        </div>
+
+        <hr>
+
+      </div>
+
+
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+
+                  <!-- Categories Widget -->
+        <div class="card my-4">
+          <h4 class="card-header">Category</h4>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+
+                <h3><span class="badge bg-primary" style="color: #fff">{{ project_data.category }}</span></h3>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h4 class="card-header">Tags</h4>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+
+                     {% for tag in project_data.tags.all %}
+                        <li>
+                          <h4><span class="badge rounded-pill bg-secondary" style="color: #fff">{{ tag }}</span></h4>
+                         </li>
+                    {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
