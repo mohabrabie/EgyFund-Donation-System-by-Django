@@ -106,8 +106,19 @@ def verify(request, uidb64, token):
 @login_required
 @csrf_protect
 def profile(request, user_id):
-    # print(user_id)
+    # Getting the user hotting that end point
     user = get_object_or_404(CustomUser, id=user_id)
+    # Checking if this is the profile of the user requesting the page
+    if request.user.id != user_id:
+        projects = Project.objects.filter(user=user)
+        context = {
+            "user": user,
+            "projects": projects,
+            "birthday": user.birth_date.strftime("%Y-%m-%d") if user.birth_date else None
+        }
+        return render(request, "accounts/profile_guest.html", context)
+
+    # We get the data to save
     if request.method == "POST":
         username = request.POST.get("username")
         first_name = request.POST.get("first_name")
@@ -128,6 +139,8 @@ def profile(request, user_id):
             user.first_name = first_name
             user.last_name = last_name
             user.phone_number = phone_number
+            # The reason we do that check in because birth_date if available, is of type string.
+            # So we convert it to date time else we set it to None
             if not birth_date:
                 user.birth_date = None
             else:
@@ -138,11 +151,10 @@ def profile(request, user_id):
             user.save()
             messages.success(request, "Profile Updated Successfully.")
 
-    # Get
+    # Get method, also this renders the view after a post request
     projects = Project.objects.filter(user=user)
     donations = Donation.objects.filter(user=user)
     user_form = CreateUserForm(instance=user)
-    print(user.birth_date)
     context = {
         "user": user,
         "projects": projects,
