@@ -14,11 +14,11 @@ from funds.models.donation import Donation
 #TODO Find a way to give the user an option to add another image on demand & not restrict him to a no.
 @login_required
 def create(request):
-    ProjectPictureFormSet = modelformset_factory(ProjectPicture, form=ProjectPictureForm, extra=3)
+    ProjectPictureFormSet = modelformset_factory(ProjectPicture, form=ProjectPictureForm, extra=1, max_num=20)
 
     if request.method == 'POST':
-        project_form = ProjectForm(request.POST)
-        formset = ProjectPictureFormSet(request.POST, request.FILES, queryset=ProjectPicture.objects.none())
+        project_form = ProjectForm(request.POST or None)
+        formset = ProjectPictureFormSet(request.POST or None, request.FILES or None, queryset=ProjectPicture.objects.none())
 
         if project_form.is_valid() and formset.is_valid():
             project_instance = project_form.save(commit=False)
@@ -26,9 +26,13 @@ def create(request):
             project_instance.save()
 
             for form in formset.cleaned_data:
-                image = form['image']
-                project_picture_object = ProjectPicture(project=project_instance, image=image)
-                project_picture_object.save()
+                try:
+                    image = form['image']
+                    project_picture_object = ProjectPicture(project=project_instance, image=image)
+                    project_picture_object.save()
+                except Exception as e:
+                    break
+               
             return redirect('myprojects')
     else:
         project_form = ProjectForm()
