@@ -28,12 +28,16 @@ body{
   padding: 5px;
   background-color: cadetblue;
   margin-left: 20px;
+  border-radius: 25px;
 }
 .menulist:hover{
   background-color: cornflowerblue;
 }
 a{
   text-decoration: none;
+  border-radius: 5px;
+  font-size: 30px;
+  border-radius: 25px;
 }
 a:hover{
   color: brown;
@@ -43,14 +47,37 @@ a:hover{
   width: fit-content;
 }
 #featured{
-  margin-left: 250px;
-  background-color: rgb(208, 238, 233);
+  background-color: hsl(170, 47%, 87%);
   padding: 5px;
-  width: fit-content;
+  width: 100%;
   text-align: center;
+  margin-top: 10px;
 }
-#featured_title{
+#title{
   background-color: rgb(34, 93, 121);
+}
+.category{
+  background-color: rgb(15, 88, 94);
+  width: fit-content;
+  display: inline-block;
+  padding: 5px;
+  margin: 10px;
+}
+.category:hover{
+  background-color: rgb(11, 84, 87);
+  color: brown;
+}
+#categoty_section{
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  background-color: hsl(170, 47%, 87%);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.img_link{
+  border-radius: 25px;
+
 }
 </style>
 <body>
@@ -74,7 +101,7 @@ a:hover{
         </li>
       </ul>
   </div>
-
+  <!-- slider section -->
   <div class="w3-content w3-display-container">
     {%  for p in projects %}
 
@@ -89,13 +116,23 @@ a:hover{
     <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
     <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
   </div>
+  <!-- featured section -->
   <div id="featured">
-    <h1 id="featured_title">the featured projects</h1>
+    <h1 id="title">the featured projects</h1>
     {% for p in projects %}
       {% if p.project.is_featured  %}
-          <a  href="#" class="menulist">{{ p.project.title }}</a>
-          <img src="{{ p.img.image.url }}" alt="" width="100px" height="100px">
+          <a  href="#" class="menulist">{{ p.project.title }}
+          <img src="{{ p.img.image.url }}" alt="" width="100px" height="100px" class="img_link"></a>
         {% endif %}
+      {% endfor %}
+  </div>
+  <!-- categoty section -->
+  <div id="categoty_section">
+    <h1 id="title">choose by category</h1>
+    {% for c in category %}
+      <div class="category">
+        <a href="#">{{ c.name }}</a>
+      </div>
       {% endfor %}
   </div>
   <script>
