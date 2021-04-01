@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+</head>
+<body>
+    <h1>Welcome {{ request.user }}! Your projects:</h1>
+    <ul>
+        {% for project in projects %}
+            <li>{{ project }}</li>
+            {% if project.images %}
+            {% for image_object in project.images.all %}
+                <img src="{{ image_object.image.url }}" width="200" height="200" style="margin: 16px;" alt="200x200px {{ project }} image">
+            {% endfor %}
+        {% endif %}
+        {% endfor %}    
+        
+    </ul>
+</body>
+</html>

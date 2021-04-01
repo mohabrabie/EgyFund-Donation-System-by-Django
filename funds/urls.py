@@ -6,7 +6,8 @@ from .views import home, project
 urlpatterns = [
     path('', home.index, name='egyfund'),
     path('project/add', project.create, name='project_add'),
-
+    #* This is for testing only
+    path('projects/', project.show_all, name='myprojects'),
 ]
 
 if settings.DEBUG:

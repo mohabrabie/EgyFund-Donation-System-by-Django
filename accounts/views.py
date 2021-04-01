@@ -128,33 +128,28 @@ def profile(request, user_id):
             user.first_name = first_name
             user.last_name = last_name
             user.phone_number = phone_number
-            user.birth_date = birth_date
+            if not birth_date:
+                user.birth_date = None
+            else:
+                user.birth_date = datetime.strptime(birth_date, "%Y-%m-%d")
             user.facebook_profile = facebook_profile
             user.country = country
             user.image = image
             user.save()
             messages.success(request, "Profile Updated Successfully.")
-        # print("------------------------------")
-        # print(username)
-        # print(first_name)
-        # print(last_name)
-        # print(phone_number)
-        print(datetime.strptime(birth_date, '%Y-%m-%d'))
-        # print(facebook_profile)
-        # print(country)
-        # print("------------------------------")
 
     # Get
     projects = Project.objects.filter(user=user)
     donations = Donation.objects.filter(user=user)
     user_form = CreateUserForm(instance=user)
+    print(user.birth_date)
     context = {
         "user": user,
         "projects": projects,
         "donations": donations,
         "form": user_form,
         "countries": countries,
-        "birthday": user.birth_date.__format__("%Y-%m-%d"),
+        "birthday": user.birth_date.strftime("%Y-%m-%d") if user.birth_date else None
     }
     return render(request, "accounts/profile.html", context)
 
