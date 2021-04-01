@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body{
+    background-color: aqua;
+}
+.mySlides {display:none;}
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.text-block {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: black;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.menulist{
+  display: inline-block;
+  font-size: 30px;
+  padding: 5px;
+  background-color: cadetblue;
+  margin-left: 20px;
+}
+.menulist:hover{
+  background-color: cornflowerblue;
+}
+a{
+  text-decoration: none;
+}
+a:hover{
+  color: brown;
+}
+#menu{
+  margin-left: 400px;
+}
+</style>
+<body>
+
+  <div>
+      <ul id="menu">
+        <li class="menulist">
+          <a href="#">Home</a>
+        </li>
+        <li class="menulist">
+          <a href="#">Profile</a>
+        </li>
+        <li class="menulist">
+          <a href="#">LogOut</a>
+        </li>
+      </ul>
+  </div>
+
+  <div class="w3-content w3-display-container">
+    {%  for p in projects %}
+
+      <div class="container">
+        <img class="mySlides" src="{{ p.img.image.url }}" style="width:100%;height:300px">
+        <div class="text-block">
+          <a href="#"><h4>{{ p.project.title }} </h4></a>
+          <h5>Total Rate : {{ p.rate }}</h5>
+        </div>
+      </div>
+      {% endfor %}
+    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+    <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+  </div>
+
+  <script>
+  var slideIndex = 1;
+  showDivs(slideIndex);
+
+  function plusDivs(n) {
+    showDivs(slideIndex += n);
+  }
+
+  function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    var y = document.getElementsByClassName("text-block");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length}
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+      y[i].style.display = "none";
+    }
+    x[slideIndex-1].style.display = "block";
+    y[slideIndex-1].style.display = "block";
+  }
+  </script>
+
+</body>
+</html>
