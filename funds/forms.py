@@ -14,7 +14,7 @@ class ProjectForm(forms.ModelForm):
         fields = [
             'title',
             'details',
-            'categories',
+            'category',
             'tags',
             'start_date',
             'end_date',
@@ -22,7 +22,7 @@ class ProjectForm(forms.ModelForm):
         labels = {
             'title': _('Project Title'),
             'details': _('Details'),
-            'categories': _('Category'),
+            'category': _('Category'),
             'tags': _('Tags'),
             'start_date': _('Start Date'),
             'end_date': _('End Date'),
