@@ -23,7 +23,8 @@ class Project(models.Model):
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(default=timezone.now)
     tags = models.ManyToManyField(Tag) 
-    user = models.ForeignKey(CustomUser, on_delete=models.NOT_PROVIDED)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
