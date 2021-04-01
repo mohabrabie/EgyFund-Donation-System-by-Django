@@ -39,13 +39,27 @@ a:hover{
   color: brown;
 }
 #menu{
-  margin-left: 400px;
+  margin-left: 250px;
+  width: fit-content;
+}
+#featured{
+  margin-left: 250px;
+  background-color: rgb(208, 238, 233);
+  padding: 5px;
+  width: fit-content;
+  text-align: center;
+}
+#featured_title{
+  background-color: rgb(34, 93, 121);
 }
 </style>
 <body>
 
   <div>
       <ul id="menu">
+        <li class="menulist">
+            user Name
+        </li>
         <li class="menulist">
           <a href="#">Home</a>
         </li>
@@ -75,7 +89,15 @@ a:hover{
     <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
     <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
   </div>
-
+  <div id="featured">
+    <h1 id="featured_title">the featured projects</h1>
+    {% for p in projects %}
+      {% if p.project.is_featured  %}
+          <a  href="#" class="menulist">{{ p.project.title }}</a>
+          <img src="{{ p.img.image.url }}" alt="" width="100px" height="100px">
+        {% endif %}
+      {% endfor %}
+  </div>
   <script>
   var slideIndex = 1;
   showDivs(slideIndex);

@@ -27,6 +27,7 @@ def index(request):
     print(project_list)
     print("=======================================================")
     print(sorted(project_list, key=lambda i: i['rate'], reverse=True))
+    project_list = sorted(project_list, key=lambda i: i['rate'], reverse=True)
     context = {
         'projects': project_list,
     }
