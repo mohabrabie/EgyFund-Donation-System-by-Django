@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 
 from funds.forms import ProjectForm, ProjectPictureForm
+from funds.models.comment import Comment
 from funds.models.project import Project
 from funds.models.projectPicture import ProjectPicture
 from funds.models.rating import Rating
@@ -65,12 +66,14 @@ def read(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
     images = ProjectPicture.objects.filter(project=project)
+    comments = Comment.objects.filter(project=project)
     donations = Donation.objects.filter(project=project).aggregate(Sum('donation'))
 
     context = {'project_data': project,
                'project_images': images,
                'project_ratings': ratings,
-               'project_donations': donations}
+               'project_donations': donations,
+               'project_comments': comments}
 
     # render template to display the data
     return render(request, 'funds/read_project.html', context)
