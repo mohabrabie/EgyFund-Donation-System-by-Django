@@ -1,6 +1,8 @@
 from django.db import models
 from django import forms
 from django.utils import timezone
+from django.core.validators import MinValueValidator
+
 
 from accounts.models import CustomUser
 from .category import Category
@@ -17,6 +19,7 @@ class Project(models.Model):
     details = models.TextField(max_length=100)
     is_featured = models.BooleanField(default=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='projects', default=get_default_category)
+    total_target = models.PositiveBigIntegerField(default=10000, validators=[MinValueValidator(1000)])
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(default=timezone.now)
     tags = models.ManyToManyField(Tag) 
