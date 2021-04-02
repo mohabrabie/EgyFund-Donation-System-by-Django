@@ -82,6 +82,12 @@ a:hover{
   border-radius: 25px;
 
 }
+.carousel-inner > .item > img,
+ .carousel-inner > .item > a > img {
+     display: block;
+     max-width: 100%;
+     height: 400px !important;
+ }
 </style>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -106,13 +112,14 @@ a:hover{
       </ul>
     </div>
   </nav>
+
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
       <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
       <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
-      {% with projects|first as first_project %}
+      {% with top_projects|first as first_project %}
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img class="d-block w-100" src="{{ first_project.img.image.url }}" alt="First slide">
@@ -122,14 +129,14 @@ a:hover{
             </div>
       </div>
         {% endwith %}
-      {%  for p in projects %}
+      {%  for p in top_projects %}
       <div class="carousel-item">
         <img src="{{ p.img.image.url }}" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h4>{{ p.project.title }} </h4>
-              <h5>Total Rate : {{ p.rate }}</h5>
-            </div>
-          </div>
+          <h5>Total Rate : {{ p.rate }}</h5>
+        </div>
+      </div>
           {% endfor %}
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -164,7 +171,7 @@ a:hover{
   <!-- featured section -->
   <div id="featured">
     <h1 class="title">the featured projects</h1>
-    {% for p in projects %}
+    {% for p in all_projects %}
       {% if p.project.is_featured  %}
           <a  href="#" class="menulist">{{ p.project.title }}
           <img src="{{ p.img.image.url }}" alt="" width="100px" height="100px" class="img_link"></a>
@@ -180,6 +187,14 @@ a:hover{
       </div>
       {% endfor %}
   </div>
+  
+  <h1>Search by Name</h1>
+  <nav class="navbar navbar-light bg-light">
+    <form class="form-inline" action="{% url 'home' %}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
