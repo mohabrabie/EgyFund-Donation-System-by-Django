@@ -17,7 +17,13 @@ def get_all_data():
         rate = Rating.objects.filter(project=p).aggregate(Sum('rating'))
         if rate['rating__sum'] == None:
             rate['rating__sum'] = 0
-        img = ProjectPicture.objects.filter(project=p)[0]
+        if ProjectPicture.objects.filter(project=p):
+            img = ProjectPicture.objects.filter(project=p)[0]
+        else:
+            img = None
+        print("=========================")
+        print(img)
+        print("=========================")
         dict = {
             'project': p,
             'rate': rate['rating__sum'],
@@ -52,4 +58,4 @@ def index(request):
 
 
 def search(request):
-    return render(request, 'funds/home.html')
+    return render(request, 'funds/search.html')
