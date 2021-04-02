@@ -212,6 +212,23 @@
         </div>
 
 
+
+         <!-- Total Target Widget -->
+        <div class="card my-4">
+          <h4 class="card-header">Target</h4>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="progress" style="height: 24px; font-size: 16px; margin-bottom: 2px;">
+                  <div class="progress-bar progress-bar-striped bg-danger font-weight-bold" role="progressbar" style="width: {{ project_target_percent}}%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ project_target_percent}}%</div>
+                </div>
+                  <h4><span class="badge badge-info" style="color: #fff">{{ project_donations.donation__sum }} $ out of {{ project_data.total_target}} $</span></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
 
     </div>
