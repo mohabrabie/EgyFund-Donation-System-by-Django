@@ -8,8 +8,8 @@
     <title>New Project</title>
 </head>
 <body>
-    <form action="{% block form_action %} {% url 'project_add' %} {% endblock %}" method="POST" enctype="multipart/form-data">
-        <div class='form-container'>
+    <form id="form-container" action="{% block form_action %} {% url 'project_add' %} {% endblock %}" method="POST" enctype="multipart/form-data">
+       
             {% csrf_token %}
             {% for hidden in project_form.hidden_fields %}
                 {{ hidden }}
@@ -18,27 +18,50 @@
             {{ project_form.as_p }}
         
             {{ formset.management_form }}
-            <div class="form-image">
-            {% for form in formset %}
-                {{ form }}     
-            {% endfor %}           
-            </div>
+                {% for form in formset %}
+                <div class="bird-form">
+                    {{ form }}    
+                </div> 
+            {% endfor %}    
+            
 
             
-            <button type='button' class='btn-add'>Add more image</button> 
+            <button type='button' id="add-form">Add more image</button> 
         
             <input type="submit" value="{% block btn_value %} Create {% endblock %}"/>
-         </div>
+         
     </form>
 
     <script>
-        const addImageBtn = document.querySelector('.btn-add')
-        const imageForm = document.querySelector('.form-image')
-        const containerForm = document.querySelector('.form-container')
-        addImageBtn.addEventListener('click', (e) => {
-            containerForm.innerHTML += imageForm.innerHTML
+    
+        let birdForm = document.querySelectorAll(".bird-form")
+        let container = document.querySelector("#form-container")
+        let addButton = document.querySelector("#add-form")
+        let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+
+        let formNum = birdForm.length-1
+        addButton.addEventListener('click', addForm)
+
+        function addForm(e){
+            e.preventDefault()
+
+            let newForm = birdForm[0].cloneNode(true)
+            let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+            formNum++
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+            container.insertBefore(newForm, addButton)
             
-        })
+            totalForms.setAttribute('value', `${formNum+1}`)
+            console.log(formNum);
+            console.log("{{ formset.max_num }}");
+
+            if( formNum >(Number("{{ formset.max_num }}")-2) ){
+                addButton.style.display = "none"
+            }
+        }
+
+        
     </script>
 </body>
 </html>

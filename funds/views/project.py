@@ -11,14 +11,15 @@ from funds.models.rating import Rating
 from funds.models.donation import Donation
 
 
-#TODO Find a way to give the user an option to add another image on demand & not restrict him to a no.
+# TODO Find a way to give the user an option to add another image on demand & not restrict him to a no.
 @login_required
 def create(request):
-    ProjectPictureFormSet = modelformset_factory(ProjectPicture, form=ProjectPictureForm, extra=1, max_num=20)
+    ProjectPictureFormSet = modelformset_factory(ProjectPicture, form=ProjectPictureForm, extra=1, max_num=3)
 
     if request.method == 'POST':
         project_form = ProjectForm(request.POST or None)
-        formset = ProjectPictureFormSet(request.POST or None, request.FILES or None, queryset=ProjectPicture.objects.none())
+        formset = ProjectPictureFormSet(request.POST or None, request.FILES or None,
+                                        queryset=ProjectPicture.objects.none())
 
         if project_form.is_valid() and formset.is_valid():
             project_instance = project_form.save(commit=False)
@@ -32,7 +33,7 @@ def create(request):
                     project_picture_object.save()
                 except Exception as e:
                     break
-               
+
             return redirect('myprojects')
     else:
         project_form = ProjectForm()
@@ -41,14 +42,14 @@ def create(request):
                   {'project_form': project_form, 'formset': formset})
 
 
-#* This function including it's html is just for testing
+# * This function including it's html is just for testing
 @login_required
 def show_all(request):
     all_projects = Project.objects.filter(user=request.user)
     return render(request, 'funds/myprojects.html', {'projects': all_projects})
 
 
-#! This method gives out an error: render() got an unexpected keyword argument 'renderer' & I am still investigating 
+# ! This method gives out an error: render() got an unexpected keyword argument 'renderer' & I am still investigating
 # @login_required
 # def create(request):
 #     if request.method == "POST":
@@ -63,7 +64,6 @@ def show_all(request):
 #         return render(request, 'funds/add.html', {'form': project_form}, renderer=None)
 
 
-
 @login_required
 def read(request, project_id):
     # query to get data about specific item
@@ -75,7 +75,6 @@ def read(request, project_id):
     total_target = project.total_target
     total_target_percent = round((donations['donation__sum'] / total_target) * 100, 1)
 
-
     context = {'project_data': project,
                'project_images': images,
                'project_ratings': ratings,
@@ -85,3 +84,8 @@ def read(request, project_id):
 
     # render template to display the data
     return render(request, 'funds/read_project.html', context)
+
+
+@login_required
+def add_comment(request):
+    print("add_comment")
