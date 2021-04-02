@@ -12,8 +12,7 @@ from django.db.models import Max
 def index(request):
     projects_with_rating = Project.objects.all()
     project_list = []
-    categoty_ist =[]
-    categoty_ist = Category.objects.all()
+    categoty_list = Category.objects.all()
     print(projects_with_rating)
 
     for p in projects_with_rating:
@@ -33,7 +32,7 @@ def index(request):
     project_list = sorted(project_list, key=lambda i: i['rate'], reverse=True)
     context = {
         'projects': project_list,
-        'category': categoty_ist,
+        'category': categoty_list,
     }
     return render(request, 'funds/home.html', context)
 
