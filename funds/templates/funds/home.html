@@ -1,118 +1,8 @@
 <!DOCTYPE html>
-<html>
-<title>Home</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% extends 'funds/layout/base.html' %}
+{% load static %}
 
-<style>
-body{
-    background-color: aqua;
-}
-.mySlides {display:none;}
-.container {
-  position: relative;
-  text-align: center;
-  color: white;
-}
-.text-block {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background-color: black;
-  color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-.menulist{
-  display: inline-block;
-  font-size: 30px;
-  padding: 10px;
-  background-color: cadetblue;
-  margin: 20px;
-  border-radius: 25px;
-}
-.menulist:hover{
-  background-color: cornflowerblue;
-}
-a{
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 30px;
-  border-radius: 25px;
-}
-a:hover{
-  color: brown;
-}
-#menu{
-  margin-left: 160px;
-  width: fit-content;
-}
-#featured{
-  background-color: hsl(170, 47%, 87%);
-  padding: 5px;
-  width: 100%;
-  text-align: center;
-  margin-top: 10px;
-}
-#title{
-  background-color: rgb(34, 93, 121);
-}
-.category{
-  background-color: rgb(15, 88, 94);
-  width: fit-content;
-  display: inline-block;
-  padding: 5px;
-  margin: 10px;
-}
-.category:hover{
-  background-color: rgb(11, 84, 87);
-  color: brown;
-}
-#categoty_section{
-  display: inline-block;
-  text-align: center;
-  width: 100%;
-  background-color: hsl(170, 47%, 87%);
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.img_link{
-  border-radius: 25px;
-
-}
-.carousel-inner > .item > img,
- .carousel-inner > .item > a > img {
-     display: block;
-     max-width: 100%;
-     height: 400px !important;
- }
-</style>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">User Name</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">LogOut</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'project_add' %}">New Project</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
+{% block content %}
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -148,26 +38,6 @@ a:hover{
     <span class="sr-only">Next</span>
   </a>
 </div>
-
-
-
-
-
-  <!-- slider section
-  <div class="w3-content w3-display-container">
-    {%  for p in projects %}
-
-      <div class="container">
-        <a href="#"><img class="mySlides" src="{{ p.img.image.url }}" style="width:100%;height:300px">
-        <div class="text-block">
-          <h4>{{ p.project.title }} </h4>
-          <h5>Total Rate : {{ p.rate }}</h5></a>
-        </div>
-      </div>
-      {% endfor %}
-    <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-    <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
-  </div> -->
   <!-- featured section -->
   <div id="featured">
     <h1 class="title">the featured projects</h1>
@@ -195,32 +65,5 @@ a:hover{
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </nav>
+{% endblock %}
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script>
-  var slideIndex = 1;
-  showDivs(slideIndex);
-
-  function plusDivs(n) {
-    showDivs(slideIndex += n);
-  }
-
-  function showDivs(n) {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    var y = document.getElementsByClassName("text-block");
-    if (n > x.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = x.length}
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";
-      y[i].style.display = "none";
-    }
-    x[slideIndex-1].style.display = "block";
-    y[slideIndex-1].style.display = "block";
-  }
-  </script>
-
-</body>
-</html>
