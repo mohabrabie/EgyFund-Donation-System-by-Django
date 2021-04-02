@@ -21,9 +21,17 @@
          max-width: 100%;
          height: 400px !important;
      }
+     .navbar-nav{
+       margin-left: 300px;
+     }
+
+     #search{
+       margin-left: 200px;
+     }
     </style>
 </head>
 <body>
+  <div id="menu">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">User Name</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,9 +51,18 @@
         <li class="nav-item">
           <a class="nav-link disabled" href="#">Disabled</a>
         </li>
+        <li id="search">
+          <nav class="navbar navbar-light bg-light">
+            <form class="form-inline" action="{% url 'home' %}">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </nav>
+        </li>
       </ul>
     </div>
   </nav>
+</div>
       {% block content %}
 
       {% endblock %}
