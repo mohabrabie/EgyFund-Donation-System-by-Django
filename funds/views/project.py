@@ -72,12 +72,16 @@ def read(request, project_id):
     images = ProjectPicture.objects.filter(project=project)
     comments = Comment.objects.filter(project=project)
     donations = Donation.objects.filter(project=project).aggregate(Sum('donation'))
+    total_target = project.total_target
+    total_target_percent = round((donations['donation__sum'] / total_target) * 100, 1)
+
 
     context = {'project_data': project,
                'project_images': images,
                'project_ratings': ratings,
                'project_donations': donations,
-               'project_comments': comments}
+               'project_comments': comments,
+               'project_target_percent': total_target_percent}
 
     # render template to display the data
     return render(request, 'funds/read_project.html', context)
