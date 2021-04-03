@@ -1,18 +1,20 @@
-{% load static %}
+{% extends 'funds/layout/base.html' %}
 {% load crispy_forms_tags %}
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
+{% block title %}
+    New Project
+{% endblock %}
+{% block home_active %} 
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <title>New Project</title>
-</head>
+{% endblock %}
+{% block new_active %} 
+active
+{% endblock %}
+{% block my_projects_active %} 
 
-<body>
+{% endblock %}
+
+{% block content %}
     <div class="container">
         <form id="form-container" action="{% block form_action %} {% url 'project_add' %} {% endblock %}" method="POST"
             enctype="multipart/form-data">
@@ -38,8 +40,7 @@
         </form>
     </div>
 
-    <script src="{% static 'js/add-image.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/jquery-3.6.0.js' %}"></script>
-</body>
 
-</html>
+
+
+{% endblock %}
