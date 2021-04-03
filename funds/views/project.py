@@ -63,11 +63,19 @@ def show_all(request):
 #         project_form = ProjectForm()
 #         return render(request, 'funds/add.html', {'form': project_form}, renderer=None)
 
+#TODO add ajax for comments and reports
 
 @login_required
 def read(request, project_id):
-    # query to get data about specific item
+
     project = get_object_or_404(Project, id=project_id)
+
+    if request.method == 'POST':
+        if request.POST.get('comment'):
+            comment_body = request.POST.get('comment')
+            user = request.user
+            comment = Comment.objects.create(comment=comment_body,user=user,project=project)
+        
     ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
     images = ProjectPicture.objects.filter(project=project)
     comments = Comment.objects.filter(project=project)
@@ -76,16 +84,33 @@ def read(request, project_id):
     total_target_percent = round((donations['donation__sum'] / total_target) * 100, 1)
 
     context = {'project_data': project,
-               'project_images': images,
-               'project_ratings': ratings,
-               'project_donations': donations,
-               'project_comments': comments,
-               'project_target_percent': total_target_percent}
+            'project_images': images,
+            'project_ratings': ratings,
+            'project_donations': donations,
+            'project_comments': comments,
+            'project_target_percent': total_target_percent}
 
     # render template to display the data
     return render(request, 'funds/read_project.html', context)
 
 
-@login_required
-def add_comment(request):
-    print("add_comment")
+    # else:
+    # # query to get data about specific item
+    #     project = get_object_or_404(Project, id=project_id)
+    #     ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
+    #     images = ProjectPicture.objects.filter(project=project)
+    #     comments = Comment.objects.filter(project=project)
+    #     donations = Donation.objects.filter(project=project).aggregate(Sum('donation'))
+    #     total_target = project.total_target
+    #     total_target_percent = round((donations['donation__sum'] / total_target) * 100, 1)
+
+    #     context = {'project_data': project,
+    #             'project_images': images,
+    #             'project_ratings': ratings,
+    #             'project_donations': donations,
+    #             'project_comments': comments,
+    #             'project_target_percent': total_target_percent}
+
+    #     # render template to display the data
+    #     return render(request, 'funds/read_project.html', context)
+
