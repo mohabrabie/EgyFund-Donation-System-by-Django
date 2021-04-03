@@ -117,8 +117,8 @@
         <div class="card my-4">
           <h5 class="card-header">Leave a Comment:</h5>
           <div class="card-body">
-            <form id="usrform" action=" {% url 'project_read' project_data.id %} " method="POST"
-            enctype="multipart/form-data">
+            <form id="usrform" action=" {% url 'project_read' project_data.id %} " method="POST" enctype="multipart/form-data">
+
             {% csrf_token %}
               <div class="form-group">
                 
@@ -158,21 +158,22 @@
               <div class="modal-body">
 
 
-              <form id="comment-report-form" action=" {% url 'project_read' project_data.id  %} " method="POST" enctype="multipart/form-data">
+              <form id="comment-report-form-{{ comment.id}}" action=" {% url 'project_read' project_data.id  %} " method="POST" enctype="multipart/form-data">
                   
-            {% csrf_token %}
+               {% csrf_token %}
                 <div class="form-group">
                   <label for="report-text" class="col-form-label">Reason For Report: </label>
-                  <textarea class="form-control" id="report-text" form="comment-report-form" name="comment-report-body"></textarea>
+                  <textarea class="form-control" id="report-text" form="comment-report-form-{{ comment.id}}" name="report"></textarea>
                 </div>
-              </form>
 
 
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Report</button>
+                <button type="submit"  class="btn btn-primary" >Report</button>
               </div>
+            </form>
+
             </div>
           </div>
         </div>
@@ -259,6 +260,10 @@
 <script>
   const submitCommentBtn = document.querySelector('.comment-submit')
   const commentBody = document.querySelector('.comment-body')
+
+  submitCommentBtn.addEventListener('click', (e)=>{
+    e.preventDefault()
+  })
 
   commentBody.addEventListener('keyup',()=>{
     if (commentBody.value == ""){

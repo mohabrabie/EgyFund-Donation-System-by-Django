@@ -70,16 +70,28 @@ def read(request, project_id):
 
     project = get_object_or_404(Project, id=project_id)
 
+    
+
     if request.method == 'POST':
+
         if request.POST.get('comment'):
             comment_body = request.POST.get('comment')
             user = request.user
             comment = Comment.objects.create(comment=comment_body,user=user,project=project)
+            
         
-        if request.POST.get('comment-report-body'):
-            print(request.POST)
+        if request.POST.__contains__('report'):
+            print(request.POST) 
+            print("done!!!!!!!!!!!!!!!")
+            print(request.POST.get('report')) 
+
+
+            
 
     ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
+    if ratings['rating__avg'] == None :
+        ratings['rating__avg'] = 0.0
+
     images = ProjectPicture.objects.filter(project=project)
     comments = Comment.objects.filter(project=project)
     donations = Donation.objects.filter(project=project).aggregate(Sum('donation'))
