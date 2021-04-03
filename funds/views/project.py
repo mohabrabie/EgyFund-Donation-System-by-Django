@@ -25,6 +25,7 @@ def create(request):
             project_instance = project_form.save(commit=False)
             project_instance.user = request.user
             project_instance.save()
+            project_instance.tags.set(project_form.cleaned_data['tags'])
 
             for form in formset.cleaned_data:
                 try:
