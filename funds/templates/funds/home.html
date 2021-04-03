@@ -48,7 +48,7 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
       </ol>
-        {% with top_projects|first as first_project %}
+
       <div class="carousel-inner">
         <div class="carousel-item active">
           
@@ -61,7 +61,7 @@
             </div>
           
         </div>
-          {% endwith %}
+        
         {%  for p in top_projects %}
           {% if p.img  != None %}
           <div class="carousel-item">

@@ -31,9 +31,12 @@ def get_all_data():
         }
         project_list.append(dict)
     top_projects = sorted(project_list, key=lambda i: i['rate'], reverse=True)[:5]
+    first_project = top_projects[0]
+    top_projects.remove(top_projects[0])
     print("HERE NEW LIST OF 5 :  ")
     print(top_projects)
     context = {
+        'first_project': first_project,
         'top_projects': top_projects,
         'all_projects': project_list,
         'category': category_list,
