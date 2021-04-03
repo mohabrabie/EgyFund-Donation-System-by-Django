@@ -1,0 +1,18 @@
+{% extends 'funds/layout/base.html' %}
+{% load static %}
+{% block content %}
+    <center>
+        {% if searched %}
+            <h1>You searched for {{ searched }}</h1>
+            <br>
+            {% for project in projects %}
+                <a href="{% url 'project_read' project.id %}">
+                    {{ project }}
+                </a> <br>
+            {% endfor %}
+        {% else %}
+                <h1>You forgot to search for a project...</h1>
+        {% endif %}
+        
+    </center>
+{% endblock %}
