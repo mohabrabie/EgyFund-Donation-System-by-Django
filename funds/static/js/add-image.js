@@ -17,8 +17,7 @@ function addForm(e) {
     container.insertBefore(newForm, addButton)
 
     totalForms.setAttribute('value', `${formNum+1}`)
-    console.log(formNum);
-    console.log("{{ formset.max_num }}");
+   
 
     if (formNum > (Number("{{ formset.max_num }}") - 2)) {
         addButton.style.display = "none"
