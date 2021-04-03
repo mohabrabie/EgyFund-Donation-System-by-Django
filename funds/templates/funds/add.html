@@ -31,7 +31,7 @@
                 </div>
             {% endfor %}
 
-            <button type='button' class="btn btn-primary" id="add-form">Add more image</button>
+            <button type='button' class="btn btn-primary" id="add-form" max="{{ formset.max_num }}">Add more image</button>
 
             <input type="submit" class="btn btn-success" value="{% block btn_value %} Create {% endblock %}" />
 
@@ -39,6 +39,7 @@
     </div>
 
     <script src="{% static 'js/add-image.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.0.js' %}"></script>
 </body>
 
 </html>
