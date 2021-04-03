@@ -63,7 +63,14 @@ def show_all(request):
 #         project_form = ProjectForm()
 #         return render(request, 'funds/add.html', {'form': project_form}, renderer=None)
 
-#TODO add ajax for comments and reports
+#TODO 1- Add Ajax for comments and reports
+#TODO 2- Adding the ability for the user to insert his own tags in funds/templates/funds/add.html
+#TODO 3- We need to make the add.html form look much better
+#TODO 4- Adding slider of the project gallery in project_read.html
+#TODO 5- Users can rate the projects
+#TODO 6- Project creator can cancel the project if the donations are less than 25% of the target.
+#TODO 7- Project page should show the overall average rating of the project + the number of the raters
+#TODO 8- Project page should show 4 other similar projects based on project tags.
 
 @login_required
 def read(request, project_id):
