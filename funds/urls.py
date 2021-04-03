@@ -6,7 +6,6 @@ from .views import home, project
 
 urlpatterns = [
     path('', home.index, name='egyfund'),
-    path('', home.search, name='search'),
     path('project/add', project.create, name='project_add'),
     url(r'^project/(?P<project_id>\d+)/$', project.read, name='project_read'),
     #* This is for testing only
