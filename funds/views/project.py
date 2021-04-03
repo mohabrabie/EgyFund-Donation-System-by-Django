@@ -1,4 +1,4 @@
-from django.db.models import Sum, Avg
+from django.db.models import Sum, Avg , Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
@@ -97,6 +97,8 @@ def read(request, project_id):
     project = get_object_or_404(Project, id=project_id)
 
     ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
+    ratings_count = Rating.objects.filter(project=project).aggregate(Count('rating'))
+    print(ratings_count)
     if ratings['rating__avg'] == None :
         ratings['rating__avg'] = 0.0
 
@@ -114,6 +116,7 @@ def read(request, project_id):
     context = {'project_data': project,
             'project_images': images,
             'project_ratings': ratings,
+            'project_ratings_count': ratings_count,
             'project_donations': donations,
             'project_comments': comments,
             'project_target_percent': total_target_percent,
