@@ -192,11 +192,29 @@ def user_projects(request, user_id):
 
 
 @login_required
+def forbidden(request):
+    return render(request, "accounts/forbidden.html")
+
+
+@login_required
 def user_donations(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
+    if user.id != request.user.id:
+        return redirect("forbidden")
     donations = Donation.objects.filter(user=user)
     context = {
         "user": user,
         "donations": donations
     }
     return render(request, "accounts/profile_donations.html", context)
+
+
+@login_required
+def profile_delete(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    if user.id != request.user.id:
+        return redirect("forbidden")
+    context = {
+        "user": user,
+    }
+    return render(request, "accounts/profile_delete.html", context)
