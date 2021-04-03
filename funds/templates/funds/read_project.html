@@ -145,9 +145,8 @@
           </div>
         </div>
         <hr>
-        {% endfor %}
-        </div>
-         <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -157,12 +156,18 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form>
+
+
+              <form id="comment-report-form" action=" {% url 'project_read' project_data.id  %} " method="POST" enctype="multipart/form-data">
+                  
+            {% csrf_token %}
                 <div class="form-group">
                   <label for="report-text" class="col-form-label">Reason For Report: </label>
-                  <textarea class="form-control" id="report-text"></textarea>
+                  <textarea class="form-control" id="report-text" form="comment-report-form" name="comment-report-body"></textarea>
                 </div>
               </form>
+
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -171,6 +176,9 @@
             </div>
           </div>
         </div>
+        {% endfor %}
+        </div>
+         
       </div>
 
       </div>

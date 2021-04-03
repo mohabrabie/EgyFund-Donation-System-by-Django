@@ -76,10 +76,16 @@ def read(request, project_id):
             user = request.user
             comment = Comment.objects.create(comment=comment_body,user=user,project=project)
         
+        if request.POST.get('comment-report-body'):
+            print(request.POST)
+
     ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
     images = ProjectPicture.objects.filter(project=project)
     comments = Comment.objects.filter(project=project)
     donations = Donation.objects.filter(project=project).aggregate(Sum('donation'))
+    if donations['donation__sum'] == None :
+        donations['donation__sum'] = 0
+
     total_target = project.total_target
     total_target_percent = round((donations['donation__sum'] / total_target) * 100, 1)
 
