@@ -9,6 +9,7 @@ urlpatterns = [
     path('', home.search, name='search'),
     path('project/add', project.create, name='project_add'),
     url(r'^project/(?P<project_id>\d+)/$', project.read, name='project_read'),
+    url(r'^project/(?P<project_id>\d+)/delete$', project.delete, name='project_delete'),
     #* This is for testing only
     path('projects/', project.show_all, name='myprojects'),
 ]
