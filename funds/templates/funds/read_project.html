@@ -261,11 +261,11 @@
 
        
 
-          <div class="d-grid gap-2 col-4 mx-auto">
+          <div class="d-grid gap-2 col-8 mx-auto">
 
           {% if project_target_percent < 25  and session_user.id == project_data.user.id %}
           
-            <a href="{% url 'project_delete' project_data.id  %} " class="btn btn-danger font-weight-bold" >Delete Project</a> 
+            <a href="{% url 'project_delete' project_data.id  %} " class="btn btn-danger btn-lg font-weight-bold" >Delete Project</a> 
               <br>
               <br>
               
@@ -274,7 +274,7 @@
             
           
 
-            <button type="submit" class="btn btn-danger font-weight-bold" data-toggle="modal" data-target="#exampleModal">Report Project</button>
+            <button type="submit" class="btn btn-danger btn-lg font-weight-bold" data-toggle="modal" data-target="#exampleModal">Report Project</button>
         
         
           </div>
