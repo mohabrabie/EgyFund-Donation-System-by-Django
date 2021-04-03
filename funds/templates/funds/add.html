@@ -1,66 +1,44 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <title>New Project</title>
 </head>
+
 <body>
-    <form id="form-container" action="{% block form_action %} {% url 'project_add' %} {% endblock %}" method="POST" enctype="multipart/form-data">
-       
+    <div class="container">
+        <form id="form-container" action="{% block form_action %} {% url 'project_add' %} {% endblock %}" method="POST"
+            enctype="multipart/form-data">
+
             {% csrf_token %}
             {% for hidden in project_form.hidden_fields %}
                 {{ hidden }}
             {% endfor %}
-        
-            {{ project_form.as_p }}
-        
+
+            {{ project_form|crispy }}
+
             {{ formset.management_form }}
-                {% for form in formset %}
+            {% for form in formset %}
                 <div class="bird-form">
-                    {{ form }}    
-                </div> 
-            {% endfor %}    
-            
+                    {{ form|crispy }}
+                </div>
+            {% endfor %}
 
-            <button type='button' id="add-form">Add more image</button> 
-        
-            <input type="submit" value="{% block btn_value %} Create {% endblock %}"/>
-         
-    </form>
+            <button type='button' class="btn btn-primary" id="add-form">Add more image</button>
 
-    <script>
-    
-        let birdForm = document.querySelectorAll(".bird-form")
-        let container = document.querySelector("#form-container")
-        let addButton = document.querySelector("#add-form")
-        let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+            <input type="submit" class="btn btn-success" value="{% block btn_value %} Create {% endblock %}" />
 
-        let formNum = birdForm.length-1
-        addButton.addEventListener('click', addForm)
+        </form>
+    </div>
 
-        function addForm(e){
-            e.preventDefault()
-
-            let newForm = birdForm[0].cloneNode(true)
-            let formRegex = RegExp(`form-(\\d){1}-`,'g')
-
-            formNum++
-            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
-            container.insertBefore(newForm, addButton)
-            
-            totalForms.setAttribute('value', `${formNum+1}`)
-            console.log(formNum);
-            console.log("{{ formset.max_num }}");
-
-            if( formNum >(Number("{{ formset.max_num }}")-2) ){
-                addButton.style.display = "none"
-            }
-        }
-
-        
-    </script>
+    <script src="{% static 'js/add-image.js' %}"></script>
 </body>
+
 </html>
