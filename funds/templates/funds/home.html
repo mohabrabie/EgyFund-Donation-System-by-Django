@@ -6,12 +6,6 @@
 {% block home_active %} 
 active
 {% endblock %}
-{% block new_active %} 
-
-{% endblock %}
-{% block my_projects_active %} 
-
-{% endblock %}
 {% block content %}
 <div class="row">
   <div class="col-sm-2">
@@ -40,6 +34,24 @@ active
               </li>
             </a>
             {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div id="latest">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" style="width: 100%;" data-toggle="dropdown">latest Projects</button>
+        <ul class="dropdown-menu">
+          {% for p in latest_projects %}
+            <a  href="{% url 'project_read' p.project.id %}" class="link_project">
+              <li style="margin-top: 10px;"> 
+                  {{ p.project.title }}<br>
+                  {{ p.project.start_date }}
+                  {% if p.img != None %}
+                <img src="{{ p.img.image.url }}" alt="" class="img_link">
+                  {% endif %}
+              </li>
+            </a>
           {% endfor %}
         </ul>
       </div>

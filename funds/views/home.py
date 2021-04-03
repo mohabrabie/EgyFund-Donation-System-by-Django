@@ -15,9 +15,6 @@ def get_all_data():
     print(projects_with_rating)
     for p in projects_with_rating:
         rate = Rating.objects.filter(project=p).aggregate(Avg('rating'))
-        print("===========================project ID")
-        print(p.id)
-        print("===========================")
         if rate['rating__avg'] == None:
             rate['rating__avg'] = 0
         if ProjectPicture.objects.filter(project=p):
@@ -33,9 +30,11 @@ def get_all_data():
     top_projects = sorted(project_list, key=lambda i: i['rate'], reverse=True)[:5]
     first_project = top_projects[0]
     top_projects.remove(top_projects[0])
+    latest_projects = sorted(project_list, key=lambda r: r['project'].start_date, reverse=True)[:5]
     print("HERE NEW LIST OF 5 :  ")
-    print(top_projects)
+    print(latest_projects)
     context = {
+        'latest_projects': latest_projects,
         'first_project': first_project,
         'top_projects': top_projects,
         'all_projects': project_list,
@@ -58,15 +57,14 @@ def index(request):
         searched = request.POST.get('searched')
         if searched:
             projects = Project.objects.filter(title__contains=searched)
-            return render(request, 'funds/search.html',{'searched':searched,
-            'projects':projects})
+            return render(request, 'funds/search.html', {'searched': searched,
+                                                         'projects': projects})
     else:
         context = get_all_data()
         return render(request, 'funds/home.html', context)
 
-
 # def search(request):
 #     if request.method == 'POST':
-        
+
 #     else:
 #         return render(request, 'funds/search.html',{})
