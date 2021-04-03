@@ -15,15 +15,15 @@ def get_all_data():
     print(projects_with_rating)
     for p in projects_with_rating:
         rate = Rating.objects.filter(project=p).aggregate(Sum('rating'))
+        print("===========================project ID")
+        print(p.id)
+        print("===========================")
         if rate['rating__sum'] == None:
             rate['rating__sum'] = 0
         if ProjectPicture.objects.filter(project=p):
             img = ProjectPicture.objects.filter(project=p)[0]
         else:
             img = None
-        print("=========================")
-        print(img)
-        print("=========================")
         dict = {
             'project': p,
             'rate': rate['rating__sum'],
