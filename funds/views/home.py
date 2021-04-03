@@ -5,7 +5,7 @@ from funds.models.rating import Rating
 from funds.models.projectPicture import ProjectPicture
 from funds.models.category import Category
 from django.db.models import Sum
-from django.db.models import Max
+from django.db.models import Avg
 
 
 def get_all_data():
@@ -14,19 +14,19 @@ def get_all_data():
     category_list = Category.objects.all()
     print(projects_with_rating)
     for p in projects_with_rating:
-        rate = Rating.objects.filter(project=p).aggregate(Sum('rating'))
+        rate = Rating.objects.filter(project=p).aggregate(Avg('rating'))
         print("===========================project ID")
         print(p.id)
         print("===========================")
-        if rate['rating__sum'] == None:
-            rate['rating__sum'] = 0
+        if rate['rating__avg'] == None:
+            rate['rating__avg'] = 0
         if ProjectPicture.objects.filter(project=p):
             img = ProjectPicture.objects.filter(project=p)[0]
         else:
             img = None
         dict = {
             'project': p,
-            'rate': rate['rating__sum'],
+            'rate': round(rate['rating__avg'], 2),
             'img': img
         }
         project_list.append(dict)
