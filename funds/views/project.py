@@ -9,6 +9,7 @@ from funds.models.project import Project
 from funds.models.projectPicture import ProjectPicture
 from funds.models.rating import Rating
 from funds.models.donation import Donation
+from funds.models.commentReport import CommentReport
 
 
 # TODO Find a way to give the user an option to add another image on demand & not restrict him to a no.
@@ -109,9 +110,18 @@ def read(request, project_id):
             
         
         if request.POST.__contains__('comment-report'):
+
+            
             print(request.POST) 
             print("done!!!!!!!!!!!!!!!")
             print(request.POST.get('comment-report')) 
+            report_body = request.POST.get('comment-report')
+            comment_id = request.POST.get('comment_id')
+            comment = get_object_or_404(Comment, id=comment_id)
+            user = request.user
+            commentReport = CommentReport.objects.create(report=report_body,user=user,comment=comment)
+            
+
         
         return redirect('project_read', project_id=project_id)
 
