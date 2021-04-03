@@ -10,6 +10,7 @@ from funds.models.projectPicture import ProjectPicture
 from funds.models.rating import Rating
 from funds.models.donation import Donation
 from funds.models.commentReport import CommentReport
+from funds.models.projectReport import ProjectReport
 
 
 # TODO Find a way to give the user an option to add another image on demand & not restrict him to a no.
@@ -70,7 +71,6 @@ def show_all(request):
 #TODO 3- We need to make the add.html form look much better
 #TODO 4- Adding slider of the project gallery in project_read.html
 #TODO 5- Users can rate the projects
-#TODO 6- Project creator can cancel the project if the donations are less than 25% of the target.
 #TODO 7- Project page should show the overall average rating of the project + the number of the raters
 
 
@@ -123,6 +123,7 @@ def read(request, project_id):
     
 
     if request.method == 'POST':
+        print(request.POST)
 
         if request.POST.__contains__('comment'):
             comment_body = request.POST.get('comment')
@@ -137,6 +138,11 @@ def read(request, project_id):
             comment = get_object_or_404(Comment, id=comment_id)
             user = request.user
             commentReport = CommentReport.objects.create(report=report_body,user=user,comment=comment)
+
+        if request.POST.__contains__('project-report'):
+            project_report_body = request.POST.get('project-report')
+            user = request.user
+            projectReport = ProjectReport.objects.create(report=project_report_body,user=user,project=project)
             
 
         

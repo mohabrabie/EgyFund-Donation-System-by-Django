@@ -236,7 +236,7 @@
             </div>
           </div>
         </div>
-        
+        <div class="row">
         {% if similar_projects %}
           <!-- similar projects Widget -->
           <div class="card my-4">
@@ -257,26 +257,73 @@
           </div>
         {% endif %}
 
-        {% if project_target_percent < 25  and session_user.id == project_data.user.id %}
+
 
        
-       
-         <form id="delete-project" action=" {% url 'project_delete' project_data.id  %} " method="POST" enctype="multipart/form-data">  
+
+          <div class="d-grid gap-2 col-4 mx-auto">
+
+          {% if project_target_percent < 25  and session_user.id == project_data.user.id %}
+          
+            <a href="{% url 'project_delete' project_data.id  %} " class="btn btn-danger font-weight-bold" >Delete Project</a> 
+              <br>
+              <br>
+              
+          
+          {% endif %}
+            
+          
+
+            <button type="submit" class="btn btn-danger font-weight-bold" data-toggle="modal" data-target="#exampleModal">Report Project</button>
+        
+        
+          </div>
+
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Project Report</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+
+
+                  <form id="project-report" action=" {% url 'project_read' project_data.id  %} " method="POST" enctype="multipart/form-data">
                   
-            {% csrf_token %}
-
-          <button type="submit" class="btn btn-danger font-weight-bold">Delete Project</button>
-        </form> 
-         
-        
-        
-        
-        
-        {% comment %} <a href="{% url 'project_delete' project_data.id  %}">Delete</a>  {% endcomment %}
-        {% endif %}
-        
+                    {% csrf_token %}
+                      <div class="form-group">
+                        <label for="report-text" class="col-form-label">Reason For Report: </label>
+                        <textarea class="form-control" id="report-text" form="project-report" name="project-report"></textarea>    
+                      </div>
 
 
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit"  class="btn btn-primary" >Report</button>
+                    </div>
+                  </form>
+
+
+
+
+                 
+                </div>
+          
+              </div>
+            </div>
+          </div>
+
+            <!-- Modal -->
+             
+
+        </div>
       </div>
 
     </div>
