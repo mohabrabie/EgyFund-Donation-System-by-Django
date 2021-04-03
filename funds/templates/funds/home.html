@@ -14,7 +14,7 @@ active
         <button class="btn btn-primary dropdown-toggle" type="button" style="width: 100%;" data-toggle="dropdown">Categories</button>
         <ul class="dropdown-menu">
           {% for c in category %}
-          <a href="#" class=""><li class="cat_list" style="margin-top: 10px;">{{ c.name }}</li></a>
+          <a href="#" class=""><li class="cat_list drop_list" style="margin-top: 10px;">{{ c.name }}</li></a>
           {% endfor %}
         </ul>
       </div>
@@ -26,7 +26,7 @@ active
           {% for p in all_projects %}
           {% if p.project.is_featured %}
             <a  href="{% url 'project_read' p.project.id %}" class="link_project">
-              <li style="margin-top: 10px;"> 
+              <li class="drop_list"> 
                   {{ p.project.title }}
                   {% if p.img != None %}
                 <img src="{{ p.img.image.url }}" alt="" class="img_link">
@@ -44,7 +44,7 @@ active
         <ul class="dropdown-menu">
           {% for p in latest_projects %}
             <a  href="{% url 'project_read' p.project.id %}" class="link_project">
-              <li style="margin-top: 10px;"> 
+              <li class="drop_list"> 
                   {{ p.project.title }}<br>
                   {{ p.project.start_date }}
                   {% if p.img != None %}

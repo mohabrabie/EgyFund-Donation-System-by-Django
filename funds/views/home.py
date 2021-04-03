@@ -31,6 +31,7 @@ def get_all_data():
     first_project = top_projects[0]
     top_projects.remove(top_projects[0])
     latest_projects = sorted(project_list, key=lambda r: r['project'].start_date, reverse=True)[:5]
+    project_list = sorted(project_list, key=lambda r: r['project'].start_date, reverse=True)
     print("HERE NEW LIST OF 5 :  ")
     print(latest_projects)
     context = {
