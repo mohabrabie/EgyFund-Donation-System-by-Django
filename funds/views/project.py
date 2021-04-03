@@ -73,6 +73,24 @@ def show_all(request):
 #TODO 6- Project creator can cancel the project if the donations are less than 25% of the target.
 #TODO 7- Project page should show the overall average rating of the project + the number of the raters
 
+
+
+
+
+
+
+@login_required
+def delete(request, project_id):
+
+    # if request.method == 'POST':
+    print("helloo")
+    project = get_object_or_404(Project, id=project_id)
+    project.delete()
+    return redirect('myprojects')
+
+
+
+
 @login_required
 def read(request, project_id):
 
@@ -99,7 +117,8 @@ def read(request, project_id):
             'project_donations': donations,
             'project_comments': comments,
             'project_target_percent': total_target_percent,
-            'similar_projects': similar_projects}
+            'similar_projects': similar_projects,
+            'session_user': request.user}
 
     
 
@@ -129,23 +148,22 @@ def read(request, project_id):
         return render(request, 'funds/read_project.html', context)
 
 
-    # else:
-    # # query to get data about specific item
-    #     project = get_object_or_404(Project, id=project_id)
-    #     ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
-    #     images = ProjectPicture.objects.filter(project=project)
-    #     comments = Comment.objects.filter(project=project)
-    #     donations = Donation.objects.filter(project=project).aggregate(Sum('donation'))
-    #     total_target = project.total_target
-    #     total_target_percent = round((donations['donation__sum'] / total_target) * 100, 1)
 
-    #     context = {'project_data': project,
-    #             'project_images': images,
-    #             'project_ratings': ratings,
-    #             'project_donations': donations,
-    #             'project_comments': comments,
-    #             'project_target_percent': total_target_percent}
 
-    #     # render template to display the data
-    #     return render(request, 'funds/read_project.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
