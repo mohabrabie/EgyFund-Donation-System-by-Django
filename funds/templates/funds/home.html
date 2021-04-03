@@ -6,7 +6,17 @@
 {% endblock %}
 
 {% block content %}
-<div id="carosel">
+<div class="row">
+  <div class="col-sm-3">
+    <div class="list-group">
+      {% for c in category %}
+        <div class="category">
+          <a href="#" class="list-group-item">{{ c.name }}</a>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+  <div class="col-sm-9">
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -16,27 +26,31 @@
       {% with top_projects|first as first_project %}
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <a href="{% url 'project_read' first_project.project.id %}"><img class="d-block w-100" src="{{ first_project.img.image.url }}" alt="First slide">
-        <div class="carousel-caption d-none d-md-block">
-          <h4>{{ first_project.project.title }} </h4>
+        
+          <img class="d-block w-100" src="{{ first_project.img.image.url }}" alt="First slide">
+          <div class="carousel-caption d-none d-md-block">
+              <a href="{% url 'project_read' first_project.project.id %}" class="link_project">
+                <h4>{{ first_project.project.title }} </h4>
+              </a>
               <h5>Total Rate : {{ first_project.rate }}</h5>
-            </div>
-        </a>
+          </div>
+        
       </div>
         {% endwith %}
       {%  for p in top_projects %}
         {% if p.img  != None %}
         <div class="carousel-item">
-          <a href="{% url 'project_read' p.project.id %}"><img src="{{ p.img.image.url }}" class="d-block w-100" alt="">
+          <img src="{{ p.img.image.url }}" class="d-block w-100" alt="">
           <div class="carousel-caption d-none d-md-block">
-            <h4>{{ p.project.title }} </h4>
-            <h5>Total Rate : {{ p.rate }}</h5></a>
+            <a href="{% url 'project_read' p.project.id %}" class="link_project">
+              <h4>{{ p.project.title }} </h4></a>
+              <h5>Total Rate : {{ p.rate }}</h5>
           </div>
         </div>
         {% endif %}
       {% endfor %}
   </div>
-</div>
+  
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
@@ -46,25 +60,23 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+  </div>
   <!-- featured section -->
-  <div id="featured">
-    <h1 class="title">the featured projects</h1>
-    {% for p in all_projects %}
-      {% if p.project.is_featured and p.img != None %}
-          <a  href="{% url 'project_read' p.project.id %}" class="menulist">{{ p.project.title }}
-          <img src="{{ p.img.image.url }}" alt="" width="100px" height="100px" class="img_link"></a>
-        {% endif %}
-      {% endfor %}
-  </div>
-  <!-- categoty section -->
-  <div id="categoty_section">
-    <h1 id="title">choose by category</h1>
-    {% for c in category %}
-      <div class="category">
-        <a href="#">{{ c.name }}</a>
-      </div>
-      {% endfor %}
-  </div>
   
+  <!-- categoty section -->
+</div>
+<div class="row">
+  <div class="col-sm-5">
+    <div id="featured col-sm-6 list-group">
+      <h1 class="title">the featured projects</h1>
+      {% for p in all_projects %}
+        {% if p.project.is_featured and p.img != None %}
+            <a  href="{% url 'project_read' p.project.id %}" class="link_project">{{ p.project.title }}
+            <img src="{{ p.img.image.url }}" alt="" class="img_link"></a>
+          {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}
 
