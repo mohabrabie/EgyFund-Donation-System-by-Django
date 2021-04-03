@@ -77,24 +77,6 @@ def read(request, project_id):
 
     project = get_object_or_404(Project, id=project_id)
 
-    
-
-    if request.method == 'POST':
-
-        if request.POST.get('comment'):
-            comment_body = request.POST.get('comment')
-            user = request.user
-            comment = Comment.objects.create(comment=comment_body,user=user,project=project)
-            
-        
-        if request.POST.__contains__('report'):
-            print(request.POST) 
-            print("done!!!!!!!!!!!!!!!")
-            print(request.POST.get('report')) 
-
-
-            
-
     ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
     if ratings['rating__avg'] == None :
         ratings['rating__avg'] = 0.0
@@ -115,8 +97,27 @@ def read(request, project_id):
             'project_comments': comments,
             'project_target_percent': total_target_percent}
 
+    
+
+    if request.method == 'POST':
+
+        if request.POST.__contains__('comment'):
+            comment_body = request.POST.get('comment')
+            user = request.user
+            comment = Comment.objects.create(comment=comment_body,user=user,project=project)
+            
+        
+        if request.POST.__contains__('comment-report'):
+            print(request.POST) 
+            print("done!!!!!!!!!!!!!!!")
+            print(request.POST.get('comment-report')) 
+        
+        return redirect('project_read', project_id=project_id)
+
+
+    else:
     # render template to display the data
-    return render(request, 'funds/read_project.html', context)
+        return render(request, 'funds/read_project.html', context)
 
 
     # else:
