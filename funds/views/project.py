@@ -72,7 +72,6 @@ def show_all(request):
 #TODO 5- Users can rate the projects
 #TODO 6- Project creator can cancel the project if the donations are less than 25% of the target.
 #TODO 7- Project page should show the overall average rating of the project + the number of the raters
-#TODO 8- Project page should show 4 other similar projects based on project tags.
 
 @login_required
 def read(request, project_id):
@@ -91,13 +90,16 @@ def read(request, project_id):
 
     total_target = project.total_target
     total_target_percent = round((donations['donation__sum'] / total_target) * 100, 1)
+    
+    similar_projects = Project.objects.filter(tags__in=Project.objects.filter(pk=project_id).values_list('tags')).exclude(pk=project_id).all()[:4]
 
     context = {'project_data': project,
             'project_images': images,
             'project_ratings': ratings,
             'project_donations': donations,
             'project_comments': comments,
-            'project_target_percent': total_target_percent}
+            'project_target_percent': total_target_percent,
+            'similar_projects': similar_projects}
 
     
 
@@ -111,10 +113,6 @@ def read(request, project_id):
         
         if request.POST.__contains__('comment-report'):
 
-            
-            print(request.POST) 
-            print("done!!!!!!!!!!!!!!!")
-            print(request.POST.get('comment-report')) 
             report_body = request.POST.get('comment-report')
             comment_id = request.POST.get('comment_id')
             comment = get_object_or_404(Comment, id=comment_id)
