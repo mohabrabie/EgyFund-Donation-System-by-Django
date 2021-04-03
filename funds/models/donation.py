@@ -12,6 +12,9 @@ class Donation(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     date = models.DateField(default=timezone.now)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    
+    def formatted_date(self):
+        return self.date.strftime("%h %d, %Y")
 
     def __str__(self):
-        return self.project.__str__() + self.user.__str__() + str(self.donation)
+        return f"${str(self.donation)} donated for {self.project} project by {self.user.username} on {self.formatted_date()}"
