@@ -41,14 +41,19 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="bg-light p-4 d-flex justify-content-end text-center">
+                    
+                </div>
                 <!-- User info -->
                 <div class="container">
-                    <h2>THIS STEP IS PERMANENT. ARE YOU SURE?</h2>
-                    <div>
-                        <a href="#" class="btn btn-danger btn-sm btn-block">Yes</a>
-                        <a href="#" class="btn btn-success btn-sm btn-block">No</a>
+                    <div class="container">
+                        <h3 class="pt-3">THIS STEP IS PERMANENT. DELETE ACOUNT?</h3>
+                        <div class="pb-4">
+                            <a href="{% url 'accounts_delete_confirm' user.id %}" class="btn btn-danger btn-sm btn-block">Yes</a>
+                            <a href="{% url 'profile' user.id %}" class="btn btn-success btn-sm btn-block">No</a>
+                        </div>
                     </div>
+                   
                 </div>
                 <!-- End of user info -->
             </div>
