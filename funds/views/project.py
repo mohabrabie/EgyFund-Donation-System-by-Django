@@ -101,6 +101,8 @@ def read(request, project_id):
 
     print("----------->>>>")
     print(project.tags.all())
+    for tags in project.tags.all():
+        print(Project.objects.filter(tags=tags))
     print("-----------<<<<")
 
     ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
