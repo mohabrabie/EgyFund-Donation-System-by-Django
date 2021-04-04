@@ -111,7 +111,7 @@ def read(request, project_id):
     total_target = project.total_target
     total_target_percent = round((donations['donation__sum'] / total_target) * 100, 1)
     
-    similar_projects = Project.objects.filter(tags__in=Project.objects.filter(pk=project_id).values_list('tags')).exclude(pk=project_id).all()[:4]
+    similar_projects = Project.objects.filter(tags__in=Project.objects.filter(pk=project_id).values_list('tags')).exclude(pk=project_id).all().distinct()[:4]
 
     context = {'project_data': project,
             'project_images': images,
