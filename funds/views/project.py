@@ -71,7 +71,6 @@ def show_all(request):
 #TODO 3- We need to make the add.html form look much better
 #TODO 4- Adding slider of the project gallery in project_read.html
 #TODO 5- Users can rate the projects
-#TODO 7- Project page should show the overall average rating of the project + the number of the raters
 
 
 
