@@ -157,22 +157,3 @@ def read(request, project_id):
         return render(request, 'funds/read_project.html', context)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
