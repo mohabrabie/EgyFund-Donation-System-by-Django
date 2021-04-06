@@ -55,10 +55,13 @@ def index(request):
             context = get_all_data()
             context['Projects_by_category'] = Projects_by_category
             return render(request, 'funds/home.html', context)
+        projects = Project.objects.all()
         searched = request.POST.get('searched').strip()
         if searched:
-            projects = Project.objects.filter(title__contains=searched)
-            return render(request, 'funds/search.html', {'searched': searched,
+            for project in projects:
+                if searched in project.tags.names() or project.title:
+            # projects = Project.objects.filter(title__contains=searched)
+                    return render(request, 'funds/search.html', {'searched': searched,
                                                          'projects': projects})
     else:
         context = get_all_data()
