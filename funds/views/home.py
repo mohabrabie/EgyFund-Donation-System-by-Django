@@ -62,7 +62,7 @@ def index(request):
         if searched:
             for project in projects:
                 if searched in project.tags.names() or project.title:
-            # projects = Project.objects.filter(title__contains=searched)
+            
                     return render(request, 'funds/search.html', {'searched': searched,
                                                          'projects': projects})
         return JsonResponse({'error': False, 'message': result})
