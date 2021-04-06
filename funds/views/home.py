@@ -6,6 +6,7 @@ from funds.models.projectPicture import ProjectPicture
 from funds.models.category import Category
 from django.db.models import Sum
 from django.db.models import Avg
+from django.http import JsonResponse
 
 
 def get_all_data():
@@ -56,6 +57,7 @@ def index(request):
             context['Projects_by_category'] = Projects_by_category
             return render(request, 'funds/home.html', context)
         projects = Project.objects.all()
+        result = {}
         searched = request.POST.get('searched').strip()
         if searched:
             for project in projects:
@@ -63,6 +65,7 @@ def index(request):
             # projects = Project.objects.filter(title__contains=searched)
                     return render(request, 'funds/search.html', {'searched': searched,
                                                          'projects': projects})
+        return JsonResponse({'error': False, 'message': result})
     else:
         context = get_all_data()
         return render(request, 'funds/home.html', context)
