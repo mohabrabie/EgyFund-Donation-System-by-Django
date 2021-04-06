@@ -1,14 +1,31 @@
 {% extends 'funds/layout/base.html' %}
 {% load static %}
 {% block content %}
+<style>
+    .result a:link, .result a:visited {
+    font-size: large;
+    background-color: #f44336;
+    color: white;
+    padding: 14px 19px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .result a:hover, .result a:active {
+    background-color: red;
+  }
+</style>
     <center>
         {% if searched %}
             <h1>You searched for {{ searched }}</h1>
             <br>
             {% for project in projects %}
+            <div class="result">
                 <a href="{% url 'project_read' project.id %}">
                     {{ project }}
                 </a> <br>
+            </div>
             {% endfor %}
         {% else %}
                 <h1>You forgot to search for a project...</h1>
