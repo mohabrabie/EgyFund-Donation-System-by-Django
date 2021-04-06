@@ -1,12 +1,12 @@
 from django.db import models
-from django import forms
 from django.utils import timezone
 from django.core.validators import MinValueValidator
+from taggit.managers import TaggableManager
 
 
 from accounts.models import CustomUser
 from .category import Category
-from .tag import Tag
+# from .tag import Tag
 
 
 def get_default_category():
@@ -22,7 +22,8 @@ class Project(models.Model):
     total_target = models.PositiveBigIntegerField(default=10000, validators=[MinValueValidator(1000)])
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(default=timezone.now)
-    tags = models.ManyToManyField(Tag) 
+    # tags = models.ManyToManyField(Tag)
+    tags = TaggableManager()
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
 

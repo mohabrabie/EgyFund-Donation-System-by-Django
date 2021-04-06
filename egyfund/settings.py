@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'accounts',
     'funds',
     'crispy_forms',
+    'taggit'
 ]
 
 MIDDLEWARE = [

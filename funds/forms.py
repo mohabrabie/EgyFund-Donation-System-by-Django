@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .models.project import Project
 from .models.projectPicture import ProjectPicture
-from .models.tag import Tag
+#from .models.tag import Tag
 
 
 class ProjectForm(forms.ModelForm):
@@ -31,10 +31,10 @@ class ProjectForm(forms.ModelForm):
             'end_date': _('End Date'),
         }
 
-    tags = forms.ModelMultipleChoiceField(
-        queryset=Tag.objects.all(),
-        widget=forms.CheckboxSelectMultiple
-    )
+    # tags = forms.ModelMultipleChoiceField(
+    #     queryset=Tag.objects.all(),
+    #     widget=forms.CheckboxSelectMultiple
+    # )
 
 
 class ProjectPictureForm(forms.ModelForm):

@@ -2,6 +2,7 @@ from django.db.models import Sum, Avg , Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
+from taggit.models import Tag
 
 from funds.forms import ProjectForm, ProjectPictureForm
 from funds.models.comment import Comment
@@ -27,7 +28,9 @@ def create(request):
             project_instance = project_form.save(commit=False)
             project_instance.user = request.user
             project_instance.save()
-            project_instance.tags.set(project_form.cleaned_data['tags'])
+            # Without this next line the tags won't be saved.
+            project_form.save_m2m()
+            # project_instance.tags.set(project_form.cleaned_data['tags'])
 
             for form in formset.cleaned_data:
                 try:
@@ -95,6 +98,12 @@ def read(request, project_id):
 
     project = get_object_or_404(Project, id=project_id)
 
+    print("----------->>>>")
+    print(project.tags.all())
+    for tags in project.tags.all():
+        print(Project.objects.filter(tags=tags))
+    print("-----------<<<<")
+
     ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
     ratings_count = Rating.objects.filter(project=project).aggregate(Count('rating'))
     print(ratings_count)
@@ -156,22 +165,12 @@ def read(request, project_id):
         return render(request, 'funds/read_project.html', context)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def tagged(request):
+    tag = get_object_or_404(Tag)
+    # Filter posts by tag name
+    projects = Project.objects.filter(tags=tag)
+    context = {
+        'tag': tag,
+        'posts': projects,
+    }
+    return render(request, 'home.html', context)

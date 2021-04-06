@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models.project import Project
 from .models.category import Category
-from .models.tag import Tag
+#from .models.tag import Tag
 from .models.donation import Donation
 from .models.comment import Comment
 from .models.projectReport import ProjectReport
@@ -23,7 +23,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Category)
-admin.site.register(Tag)
+#admin.site.register(Tag)
 admin.site.register(Donation)
 admin.site.register(Comment)
 admin.site.register(ProjectReport)

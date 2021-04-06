@@ -218,3 +218,15 @@ def profile_delete(request, user_id):
         "user": user,
     }
     return render(request, "accounts/profile_delete.html", context)
+
+
+@login_required
+def profile_delete_confirm(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    if user.id != request.user.id:
+        return redirect("forbidden")
+    # print("Account deleted")
+    user = CustomUser.objects.get(id=request.user.id)
+    user.delete()
+    messages.success(request, "Account has been deleted.")
+    return redirect("logout")
