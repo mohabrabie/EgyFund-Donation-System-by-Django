@@ -6,4 +6,4 @@ from . import project
 from . import projectPicture
 from . import projectReport
 from . import rating
-from . import tag
+# from . import tag

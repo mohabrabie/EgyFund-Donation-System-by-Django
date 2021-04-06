@@ -11,4 +11,4 @@ class Rating(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.project.__str__() + self.user.__str__() + str(self.rating)
+        return f"{self.project}: {self.rating}/5 by {self.user.username}"

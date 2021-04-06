@@ -1,7 +1,8 @@
-from django.db.models import Sum, Avg
+from django.db.models import Sum, Avg , Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
+from taggit.models import Tag
 
 from funds.forms import ProjectForm, ProjectPictureForm
 from funds.models.comment import Comment
@@ -10,6 +11,7 @@ from funds.models.projectPicture import ProjectPicture
 from funds.models.rating import Rating
 from funds.models.donation import Donation
 from funds.models.commentReport import CommentReport
+from funds.models.projectReport import ProjectReport
 
 
 # TODO Find a way to give the user an option to add another image on demand & not restrict him to a no.
@@ -26,7 +28,9 @@ def create(request):
             project_instance = project_form.save(commit=False)
             project_instance.user = request.user
             project_instance.save()
-            project_instance.tags.set(project_form.cleaned_data['tags'])
+            # Without this next line the tags won't be saved.
+            project_form.save_m2m()
+            # project_instance.tags.set(project_form.cleaned_data['tags'])
 
             for form in formset.cleaned_data:
                 try:
@@ -69,18 +73,45 @@ def show_all(request):
 #TODO 2- Adding the ability for the user to insert his own tags in funds/templates/funds/add.html
 #TODO 3- We need to make the add.html form look much better
 #TODO 4- Adding slider of the project gallery in project_read.html
-#TODO 5- Users can rate the projects
-#TODO 6- Project creator can cancel the project if the donations are less than 25% of the target.
-#TODO 7- Project page should show the overall average rating of the project + the number of the raters
+
+
+
+
+
+
+
+@login_required
+def delete(request, project_id):
+
+    # if request.method == 'POST':
+    print("helloo")
+    project = get_object_or_404(Project, id=project_id)
+    project.delete()
+    return redirect('myprojects')
+
+
+
 
 @login_required
 def read(request, project_id):
 
     project = get_object_or_404(Project, id=project_id)
 
-    ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
-    if ratings['rating__avg'] == None :
-        ratings['rating__avg'] = 0.0
+    print("----------->>>>")
+    print(project.tags.all())
+    for tags in project.tags.all():
+        print(Project.objects.filter(tags=tags))
+    print("-----------<<<<")
+
+    ratings_query = Rating.objects.filter(project=project).aggregate(Avg('rating'))
+    if ratings_query['rating__avg'] == None :
+        ratings_query['rating__avg'] = 0.0
+
+    ratings = round(ratings_query['rating__avg'],2)
+    ratings_count = Rating.objects.filter(project=project).aggregate(Count('rating'))
+    ratings_count_user = Rating.objects.filter(project=project,user=request.user).aggregate(Count('rating'))
+    ratings_count_user_final = ratings_count_user['rating__count']
+    
 
     images = ProjectPicture.objects.filter(project=project)
     comments = Comment.objects.filter(project=project)
@@ -89,21 +120,25 @@ def read(request, project_id):
         donations['donation__sum'] = 0
 
     total_target = project.total_target
-    total_target_percent = round((donations['donation__sum'] / total_target) * 100, 1)
+    total_target_percent = round((donations['donation__sum'] / total_target) * 100, 2)
     
-    similar_projects = Project.objects.filter(tags__in=Project.objects.filter(pk=project_id).values_list('tags')).exclude(pk=project_id).all()[:4]
+    similar_projects = Project.objects.filter(tags__in=Project.objects.filter(pk=project_id).values_list('tags')).exclude(pk=project_id).all().distinct()[:4]
 
     context = {'project_data': project,
             'project_images': images,
             'project_ratings': ratings,
+            'project_ratings_count': ratings_count,
+            'project_ratings_count_per_user': ratings_count_user_final,
             'project_donations': donations,
             'project_comments': comments,
             'project_target_percent': total_target_percent,
-            'similar_projects': similar_projects}
+            'similar_projects': similar_projects,
+            'session_user': request.user}
 
     
 
     if request.method == 'POST':
+        print(request.POST)
 
         if request.POST.__contains__('comment'):
             comment_body = request.POST.get('comment')
@@ -118,6 +153,31 @@ def read(request, project_id):
             comment = get_object_or_404(Comment, id=comment_id)
             user = request.user
             commentReport = CommentReport.objects.create(report=report_body,user=user,comment=comment)
+
+        if request.POST.__contains__('project-report'):
+            project_report_body = request.POST.get('project-report')
+            user = request.user
+            projectReport = ProjectReport.objects.create(report=project_report_body,user=user,project=project)
+            
+        if request.POST.__contains__('donation'):
+            donation_num = request.POST.get('donation')
+            user = request.user
+            donation = Donation.objects.create(donation=donation_num,user=user,project=project)
+            
+        if request.POST.__contains__('rating-form'):
+            rate = request.POST.get('rating-form')
+            user = request.user
+            ratingObj = Rating.objects.create(rating=rate,user=user,project=project)
+        
+
+        if request.POST.__contains__('edit-rating-form'):
+            user = request.user
+            rate = request.POST.get('edit-rating-form')  
+            ratingObj = Rating.objects.filter(user=user,project=project).first()
+            ratingObj.rating = rate
+            ratingObj.save()
+           
+        
             
 
         
@@ -129,23 +189,12 @@ def read(request, project_id):
         return render(request, 'funds/read_project.html', context)
 
 
-    # else:
-    # # query to get data about specific item
-    #     project = get_object_or_404(Project, id=project_id)
-    #     ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
-    #     images = ProjectPicture.objects.filter(project=project)
-    #     comments = Comment.objects.filter(project=project)
-    #     donations = Donation.objects.filter(project=project).aggregate(Sum('donation'))
-    #     total_target = project.total_target
-    #     total_target_percent = round((donations['donation__sum'] / total_target) * 100, 1)
-
-    #     context = {'project_data': project,
-    #             'project_images': images,
-    #             'project_ratings': ratings,
-    #             'project_donations': donations,
-    #             'project_comments': comments,
-    #             'project_target_percent': total_target_percent}
-
-    #     # render template to display the data
-    #     return render(request, 'funds/read_project.html', context)
-
+def tagged(request):
+    tag = get_object_or_404(Tag)
+    # Filter posts by tag name
+    projects = Project.objects.filter(tags=tag)
+    context = {
+        'tag': tag,
+        'posts': projects,
+    }
+    return render(request, 'home.html', context)
