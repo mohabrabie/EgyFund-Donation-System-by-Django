@@ -73,7 +73,6 @@ def show_all(request):
 #TODO 2- Adding the ability for the user to insert his own tags in funds/templates/funds/add.html
 #TODO 3- We need to make the add.html form look much better
 #TODO 4- Adding slider of the project gallery in project_read.html
-#TODO 5- Users can rate the projects
 
 
 
@@ -110,6 +109,8 @@ def read(request, project_id):
 
     ratings = round(ratings_query['rating__avg'],2)
     ratings_count = Rating.objects.filter(project=project).aggregate(Count('rating'))
+    ratings_count_user = Rating.objects.filter(project=project,user=request.user).aggregate(Count('rating'))
+    ratings_count_user_final = ratings_count_user['rating__count']
     
 
     images = ProjectPicture.objects.filter(project=project)
@@ -127,6 +128,7 @@ def read(request, project_id):
             'project_images': images,
             'project_ratings': ratings,
             'project_ratings_count': ratings_count,
+            'project_ratings_count_per_user': ratings_count_user_final,
             'project_donations': donations,
             'project_comments': comments,
             'project_target_percent': total_target_percent,
@@ -166,6 +168,15 @@ def read(request, project_id):
             rate = request.POST.get('rating-form')
             user = request.user
             ratingObj = Rating.objects.create(rating=rate,user=user,project=project)
+        
+
+        if request.POST.__contains__('edit-rating-form'):
+            user = request.user
+            rate = request.POST.get('edit-rating-form')  
+            ratingObj = Rating.objects.filter(user=user,project=project).first()
+            ratingObj.rating = rate
+            ratingObj.save()
+           
         
             
 
