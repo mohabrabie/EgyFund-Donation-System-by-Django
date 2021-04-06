@@ -104,11 +104,13 @@ def read(request, project_id):
         print(Project.objects.filter(tags=tags))
     print("-----------<<<<")
 
-    ratings = Rating.objects.filter(project=project).aggregate(Avg('rating'))
+    ratings_query = Rating.objects.filter(project=project).aggregate(Avg('rating'))
+    if ratings_query['rating__avg'] == None :
+        ratings_query['rating__avg'] = 0.0
+
+    ratings = round(ratings_query['rating__avg'],2)
     ratings_count = Rating.objects.filter(project=project).aggregate(Count('rating'))
-    print(ratings_count)
-    if ratings['rating__avg'] == None :
-        ratings['rating__avg'] = 0.0
+    
 
     images = ProjectPicture.objects.filter(project=project)
     comments = Comment.objects.filter(project=project)
@@ -117,7 +119,7 @@ def read(request, project_id):
         donations['donation__sum'] = 0
 
     total_target = project.total_target
-    total_target_percent = round((donations['donation__sum'] / total_target) * 100, 1)
+    total_target_percent = round((donations['donation__sum'] / total_target) * 100, 2)
     
     similar_projects = Project.objects.filter(tags__in=Project.objects.filter(pk=project_id).values_list('tags')).exclude(pk=project_id).all().distinct()[:4]
 
@@ -154,6 +156,17 @@ def read(request, project_id):
             project_report_body = request.POST.get('project-report')
             user = request.user
             projectReport = ProjectReport.objects.create(report=project_report_body,user=user,project=project)
+            
+        if request.POST.__contains__('donation'):
+            donation_num = request.POST.get('donation')
+            user = request.user
+            donation = Donation.objects.create(donation=donation_num,user=user,project=project)
+            
+        if request.POST.__contains__('rating-form'):
+            rate = request.POST.get('rating-form')
+            user = request.user
+            ratingObj = Rating.objects.create(rating=rate,user=user,project=project)
+        
             
 
         
