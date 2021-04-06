@@ -88,7 +88,7 @@
 
               <div class="doantion">
                 <p><span class="font-weight-bold">Total Donations: </span>{{ project_donations.donation__sum }} $ </p>
-
+                {% if not  session_user.id == project_data.user.id %}
                 <div class="doantion-form">
                     <button type="submit" class="btn btn-success  font-weight-bold " data-toggle="modal" data-target="#exampleModal">Donate</button>
 
@@ -128,107 +128,111 @@
                       </div>
                     </div>
                 </div>
+                {% endif %}
               </div>
               <hr>
               <div class="rating">
                   <p><span class="font-weight-bold"> Ratings Count:  </span> {{ project_ratings_count.rating__count }}</p>
                   <p><span class="font-weight-bold"> Rating:  </span> {{ project_ratings }} / 5.0 </p>
-                  {% if project_ratings_count_per_user == 0 %}
-                    <div class="rating-form-container">
-                      <button type="submit" class="btn btn-warning  font-weight-bold " data-toggle="modal" data-target="#rateModal">Rate</button>
+                    {% if not  session_user.id == project_data.user.id %}
+                      {% if project_ratings_count_per_user == 0 %}
+                        <div class="rating-form-container">
+                          <button type="submit" class="btn btn-warning  font-weight-bold " data-toggle="modal" data-target="#rateModal">Rate</button>
 
-                      <div class="modal fade" id="rateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Rating</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
+                          <div class="modal fade" id="rateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Rating</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+
+
+
+                                  <form id="rating-form" action=" {% url 'project_read' project_data.id  %} " method="POST" enctype="multipart/form-data">
+                                  
+                                      {% csrf_token %}
+                                      <div class="form-group">
+                                        <label for="rating-form" class="col-form-label">Rating Number: </label>
+                                
+                                        <select name="rating-form" id="rating-form" form="rating-form">
+                                          <option value="" selected disabled>rate</option>
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                        </select>
+                                      </div>
+
+
+                                
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit"  class="btn btn-primary" >Rate</button>
+                                      </div>
+                                  </form>
+
+                    
+                                </div>
+                          
+                              </div>
                             </div>
-                            <div class="modal-body">
-
-
-
-                              <form id="rating-form" action=" {% url 'project_read' project_data.id  %} " method="POST" enctype="multipart/form-data">
-                              
-                                  {% csrf_token %}
-                                  <div class="form-group">
-                                    <label for="rating-form" class="col-form-label">Rating Number: </label>
-                            
-                                    <select name="rating-form" id="rating-form" form="rating-form">
-                                      <option value="" selected disabled>rate</option>
-                                      <option value="1">1</option>
-                                      <option value="2">2</option>
-                                      <option value="3">3</option>
-                                      <option value="4">4</option>
-                                      <option value="5">5</option>
-                                    </select>
-                                  </div>
-
-
-                            
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit"  class="btn btn-primary" >Rate</button>
-                                  </div>
-                              </form>
-
-                
-                            </div>
-                      
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  {% else %}
-                    <div class="rating-form-container">
-                      <button type="submit" class="btn btn-warning  font-weight-bold " data-toggle="modal" data-target="#editRateModal">Edit Rate</button>
+                      {% else %}
+                         <div class="rating-form-container">
+                          <button type="submit" class="btn btn-warning  font-weight-bold " data-toggle="modal" data-target="#editRateModal">Edit Rate</button>
 
-                      <div class="modal fade" id="editRateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Rating</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
+                          <div class="modal fade" id="editRateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Rating</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+
+
+
+                                  <form id="edit-rating-form" action=" {% url 'project_read' project_data.id  %} " method="POST" enctype="multipart/form-data">
+                                  
+                                      {% csrf_token %}
+                                      <div class="form-group">
+                                        <label for="rating-form" class="col-form-label">Rating Number: </label>
+                                
+                                        <select name="edit-rating-form" id="edit-rating-form" form="edit-rating-form">
+                                          <option value="" selected disabled>rate</option>
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                        </select>
+                                      </div>
+
+
+                                
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit"  class="btn btn-primary" >Rate</button>
+                                      </div>
+                                  </form>
+
+                    
+                                </div>
+                          
+                              </div>
                             </div>
-                            <div class="modal-body">
-
-
-
-                              <form id="edit-rating-form" action=" {% url 'project_read' project_data.id  %} " method="POST" enctype="multipart/form-data">
-                              
-                                  {% csrf_token %}
-                                  <div class="form-group">
-                                    <label for="rating-form" class="col-form-label">Rating Number: </label>
-                            
-                                    <select name="edit-rating-form" id="edit-rating-form" form="edit-rating-form">
-                                      <option value="" selected disabled>rate</option>
-                                      <option value="1">1</option>
-                                      <option value="2">2</option>
-                                      <option value="3">3</option>
-                                      <option value="4">4</option>
-                                      <option value="5">5</option>
-                                    </select>
-                                  </div>
-
-
-                            
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit"  class="btn btn-primary" >Rate</button>
-                                  </div>
-                              </form>
-
-                
-                            </div>
-                      
                           </div>
                         </div>
-                      </div>
-                    </div>
+                    {% endif %}
+                   
                   {% endif %}
               </div>
             </div>
