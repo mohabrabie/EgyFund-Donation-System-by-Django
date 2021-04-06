@@ -70,8 +70,4 @@ def index(request):
         context = get_all_data()
         return render(request, 'funds/home.html', context)
 
-# def search(request):
-#     if request.method == 'POST':
 
-#     else:
-#         return render(request, 'funds/search.html',{})
