@@ -65,7 +65,7 @@ def index(request):
             
                     return render(request, 'funds/search.html', {'searched': searched,
                                                          'projects': projects})
-        return JsonResponse({'error': False, 'message': result})
+        return render(request, 'funds/home.html', context)
     else:
         context = get_all_data()
         return render(request, 'funds/home.html', context)
