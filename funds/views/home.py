@@ -64,7 +64,7 @@ def index(request):
             
                     return render(request, 'funds/search.html', {'searched': searched,
                                                          'projects': projects})
-        return render(request, 'funds/home.html', context)
+        return render(request, 'funds/search.html',{})
     else:
         context = get_all_data()
         return render(request, 'funds/home.html', context)
