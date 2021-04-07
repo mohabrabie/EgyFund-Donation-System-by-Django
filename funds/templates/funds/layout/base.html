@@ -1,14 +1,8 @@
 {% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>{% block title %} EgyFund {% endblock %}</title>
+    <!-- <meta charset="UTF-8">
+    
     <style>
     #carosel{
       width: 100%;
@@ -72,10 +66,50 @@
        margin-left: 10px;
      }
      
+    </style> -->
+    <style>
+      .fill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden
+      }
+      .fill img {
+          flex-shrink:   0;
+          min-width:  100%;
+          min-height: 100%;
+      }
     </style>
+    	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+  <title>{% block title %} Egy Fund {% endblock %}</title>
+
+	<!-- Styles -->
+	<link rel='stylesheet' href="{% static 'css/bootstrap.min.css' %}">
+	<link rel='stylesheet' href="{% static 'css/animate.min.css' %}">
+	<link rel='stylesheet' href="{% static 'css/font-awesome.min.css' %}"/>
+	<link rel='stylesheet' href="{% static 'css/style.css' %}"/>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+	
+	<!-- Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800' rel='stylesheet' type='text/css'>
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+			
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="#">
 </head>
 <body>
-  <div id="menu">
+  <div id="parallax">
+  </div>
+  <!-- <div id="menu">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="{% url  'egyfund' %}">User Name</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,11 +141,56 @@
       </ul>
     </div>
   </nav>
-</div>
+</div> -->
+<header id="header" class="navbar navbar-inverse navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+      <!-- Your Logo -->
+      <a href="{% url 'egyfund' %}" class="navbar-brand">EgyFund</a>
+    </div>
+    <!-- Start Navigation -->
+    <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+    <ul class="nav navbar-nav">
+      <li>
+      <a href="{% url 'egyfund' %}">Home</a>
+      </li>
+      <li>
+      <a href="{% url 'project_add' %}">New Project</a>
+      </li>
+      <li>
+      <a href="#gallery">Gallery</a>
+      </li>
+      <li>
+      <a href="#slider">Testimonials</a>
+      </li>
+      <li>
+      <a href="#faq">FAQ</a>
+      </li>
+      <li>
+      <a href="{% url 'logout' %}">LogOut</a>
+      </li>
+    </ul>
+    </nav>
+  </div>
+  </header>
       {% block content %}
 
       {% endblock %}
 
+      <script src="{% static 'js/jquery.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'js/waypoints.min.js' %}"></script>
+      <script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
+      <script src="{% static 'js/jquery.localScroll.min.js' %}"></script>
+      <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+      <script src="{% static 'js/validate.js' %}"></script>
+      <script src="{% static 'js/common.js' %}"></script>
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
