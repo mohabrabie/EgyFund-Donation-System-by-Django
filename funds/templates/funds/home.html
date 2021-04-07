@@ -120,12 +120,12 @@ active
       <div class="col-md-5">
         <div class="herotext">
           <h1 class="wow bounceInDown" data-wow-duration="1s" data-wow-delay="0.1s">Egy <span class="lighter">Fund</span></h1>
-          <p class="lead wow zoomIn" data-wow-duration="2s" data-wow-delay="0.5s" style="color:darkblue;">
+          <p class="lead wow zoomIn" data-wow-duration="2s" data-wow-delay="0.5s" style="color:rgb(255, 255, 255); font-size: 40px;">
             When we give cheerfully and accept gratefully, everyone is blessed.
           </p>
           <p>
-            <a href="#" class="btn btn-default btn-lg wow fadeInLeft" role="button"> Featured Projects </a> <br><br>
-             <a href="#" class="btn btn-default btn-lg wow fadeInRight" role="button">High Rated Projects</a>
+            <a href="#Featured" class="btn btn-default btn-lg wow fadeInLeft" role="button"> Featured Projects </a> <br><br>
+             <a href="#latest" class="btn btn-default btn-lg wow fadeInRight" role="button">Latest Projects</a>
           </p>
         </div>
       </div>
@@ -134,7 +134,7 @@ active
     </div>
   </div>
   </section>
-  <!-- About
+  <!-- slide show
 	================================================== -->
 <section id="about" class="parallax section" style="background-image: url(http://themepush.com/demo/runcharity/assets/img/1.jpg);">
   <div class="wrapsection">
@@ -166,10 +166,14 @@ active
               <div class="item active fill">
                 <img src="{{ first_project.img.image.url }}" alt="first slide">
                 <div class="carousel-caption">
-                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>{{ first_project.rate }}<br>
+                  <div style="margin-bottom: 20px;">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    &nbsp;&nbsp;&nbsp;{{ first_project.rate }}<br>
+                  </div>
                   <a href="{% url 'project_read' first_project.project.id %}">
                   <button type="button" class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>{{ first_project.project.title }} 
+                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                    &nbsp;&nbsp;&nbsp;{{ first_project.project.title }} 
                   </button>
                 </a>
                 </div>
@@ -179,10 +183,14 @@ active
               <div class="item fill">
                 <img src="{{ p.img.image.url }}" alt="Project image">
                 <div class="carousel-caption">
-                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>{{ p.rate }}<br>
+                  <div style="margin-bottom:20px;">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    &nbsp;&nbsp;&nbsp;{{ p.rate }}<br>
+                  </div>
                   <a href="{% url 'project_read' p.project.id %}">
                     <button type="button" class="btn btn-default btn-lg">
-                      <span class="glyphicon glyphicon-send" aria-hidden="true"></span>{{ p.project.title }}
+                      <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                      &nbsp;&nbsp;&nbsp;{{ p.project.title }}
                     </button>
                   </a>
                     
@@ -192,8 +200,6 @@ active
               {% endfor %}
             </div>
           </div>
-            
-          
             <!-- Controls -->
             <div class="col-sm-1" style="margin-top: 300px;">
             <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
@@ -207,5 +213,82 @@ active
     </div>
   </div>
   </section>
+<!-- Featured projects
+	================================================== -->
+  <section id="Featured" class="parallax section" style="background-image: url(http://themepush.com/demo/runcharity/assets/img/2.jpg);">
+    <div class="wrapsection">
+      <div class="parallax-overlay" style="background-color:#00c1c1;opacity:0.9;"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 sol-sm-12">
+            <div class="maintitle">
+              <h3 class="section-title">Featured Projects</h3>
+              <p class="lead wow flipInX">
+                these are the Projects that recommended by the Admin
+              </p>
+            </div>
+          </div>
+            {% for p in all_projects %}
+            {% if p.project.is_featured %}
+            <div class="col-md-4" style="margin-bottom: 20px;">
+              <a href="{% url 'project_read' p.project.id %}">
+                    {% if p.img != None %}
+                    <img src="{{ p.img.image.url }}" alt="" class="img_link" style="width: 300px;height: 200px;">
+                    <div class="description">
+                      <span class="caption" style="font-size: 20px;background-color: antiquewhite;margin-left: 90px;padding: 3px;">
+                        {{ p.project.title }}
+                        <span class="glyphicon glyphicon-leaf" style="margin-left: 20px;"></span>
+                      </span> 
+                      
+                      <div class="clearfix"></div>
+                    </div>	
+                    {% endif %}
+              </a>
+            </div>
+              {% endif %}
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+    </section>
+<!-- Featured projects
+	================================================== -->
+  <section id="latest" class="parallax section" style="background-image: url(http://themepush.com/demo/runcharity/assets/img/6.jpg);">
+    <div class="wrapsection">
+      <div class="parallax-overlay" style="background-color:#1a7474;opacity:0.9;"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 sol-sm-12">
+            <div class="maintitle">
+              <h3 class="section-title">Latest Projects</h3>
+              <p class="lead wow flipInX">
+                These are the Latest Projects Uploaded by Other Users
+              </p>
+            </div>
+          </div>
+          {% for p in latest_projects %}
+          {% if p.img != None %}  
+            <div class="col-md-4" style="margin-bottom: 20px;">
+              <a href="{% url 'project_read' p.project.id %}" title="This is the description">
+                <img src="{{ p.img.image.url }}" alt="" style="width: 300px;height: 200px;">
+                <div class="description">
+                  <span class="caption" style="background-color: azure;font-size: 20px;">
+                    {{ p.project.title }}
+                    <b style="margin-left: 80px;">{{ p.project.start_date }}</b>
+                    <span class="camera"><i class="fa fa-camera"></i></span>
+                  </span> 
+                  
+                  <div class="clearfix"></div>
+                </div>			
+              </a>
+            </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    </section>
+
+
 {% endblock %}
 
