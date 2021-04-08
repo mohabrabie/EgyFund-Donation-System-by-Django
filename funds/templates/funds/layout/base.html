@@ -168,8 +168,14 @@
       <li>
       <a href="#slider">Testimonials</a>
       </li>
-      <li>
-      <a href="#faq">FAQ</a>
+      <li id="search">
+        <nav class="navbar navbar-light bg-light">
+          <form class="form-inline" method =POST action="{% url 'egyfund' %}">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </nav>
       </li>
       <li>
       <a href="{% url 'logout' %}">LogOut</a>

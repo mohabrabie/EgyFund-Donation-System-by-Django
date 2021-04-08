@@ -1,0 +1,25 @@
+
+{% load static %}
+{% block content %}
+
+
+
+{% for project in projects_category %}
+<div style="background-color: red ;">
+
+    <h1>
+    <a href="{% url 'project_read' project.id  %}">
+      {{ project.title }}
+  </a>
+</h1>
+  </div>
+
+{% endfor %}
+
+
+
+
+
+
+
+{% endblock %}

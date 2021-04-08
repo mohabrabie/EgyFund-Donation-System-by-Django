@@ -1,0 +1,91 @@
+{% load static %}
+<html lang="en">
+<head>
+    <style>
+    
+     
+    </style>
+    	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+  <title>{% block title %} Egy Fund {% endblock %}</title>
+
+	<!-- Styles -->
+	<link rel='stylesheet' href="{% static 'css/bootstrap.min.css' %}">
+	<link rel='stylesheet' href="{% static 'css/animate.min.css' %}">
+	<link rel='stylesheet' href="{% static 'css/font-awesome.min.css' %}"/>
+	<link rel='stylesheet' href="{% static 'css/style.css' %}"/>
+	
+	<!-- Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800' rel='stylesheet' type='text/css'>
+
+	<link rel="shortcut icon" href="#">
+</head>
+<body>
+  
+<header id="header" class="navbar navbar-inverse navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+      <!-- Your Logo -->
+      <a href="{% url 'egyfund' %}" class="navbar-brand">EgyFund</a>
+    </div>
+    <!-- Start Navigation -->
+    <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+    <ul class="nav navbar-nav">
+      <li>
+      <a href="{% url 'egyfund' %}">Home</a>
+      </li>
+      <li>
+      <a href="{% url 'project_add' %}">New Project</a>
+      </li>
+      <li>
+      <a href="#gallery">Gallery</a>
+      </li>
+      <li>
+      <a href="#slider">Testimonials</a>
+      </li>
+      <li id="search">
+        <nav class="navbar navbar-light bg-light">
+          <form class="form-inline" method =POST action="{% url 'egyfund' %}">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searched">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </nav>
+      </li>
+      <li>
+      <a href="{% url 'logout' %}">LogOut</a>
+      </li>
+    </ul>
+    </nav>
+  </div>
+  </header>
+      {% block content %}
+
+      {% endblock %}
+
+      <script src="{% static 'js/jquery.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'js/waypoints.min.js' %}"></script>
+      <script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
+      <script src="{% static 'js/jquery.localScroll.min.js' %}"></script>
+      <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+      <script src="{% static 'js/validate.js' %}"></script>
+      <script src="{% static 'js/common.js' %}"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script>
+
+  </script>
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.0.js' %}"></script>
+</body>
+</html>

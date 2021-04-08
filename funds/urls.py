@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^project/(?P<project_id>\d+)/delete$', project.delete, name='project_delete'),
     #* This is for testing only
     path('projects/', project.show_all, name='myprojects'),
+    url(r'^(?P<category_id>\d+)/$', home.listCategoryProjects, name='project_cat'),
+    
 ]
 
 if settings.DEBUG:
