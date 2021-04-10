@@ -301,14 +301,14 @@ active
               <p class="lead wow flipInX">
                 These are all the Categories we have !
               </p>
-            </div>
-          </div>
-          {% for cat in category %}
-            <a href="{% url 'project_cat' cat.id %}" class="col-md-4 cat_div">
+            </div>  
+        {% for cat in category %}
+        </div class="cat_div">
+            <a href="{% url 'project_cat' cat.id %}" class="col-md-4">
               {{ cat.name }}
           </a>
-        {% endfor %}
         </div>
+        {% endfor %}
       </div>
     </div>
     </section>

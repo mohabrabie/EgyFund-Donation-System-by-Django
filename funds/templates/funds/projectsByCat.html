@@ -1,25 +1,28 @@
-
+{% extends 'funds/layout/base.html' %}
 {% load static %}
 {% block content %}
-
-
-
-{% for project in projects_category %}
-<div style="background-color: red ;">
-
-    <h1>
-    <a href="{% url 'project_read' project.id  %}">
-      {{ project.title }}
-  </a>
-</h1>
-  </div>
-
-{% endfor %}
-
-
-
-
-
-
-
+ <section id="latest" class="parallax section" style="background-image: url(http://themepush.com/demo/runcharity/assets/img/6.jpg);">
+        <div class="wrapsection">
+          <div class="parallax-overlay" style="background-color:rgb(67, 83, 116);opacity:0.9;"></div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 sol-sm-12">
+                <div class="maintitle">
+                  <h3 class="section-title">Search reasults</h3>
+                  <p class="lead wow flipInX">
+                    You searched for {{ searched }}
+                  </p>
+                </div>
+            </div>
+            {% for project in projects_category %}
+            <div style="background-color: rgb(13, 90, 86) ;" class="col-md-4 cat_div">
+              <a href="{% url 'project_read' project.id  %}" class="">
+                {{ project.title }}
+              </a>
+            </div>
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+        </section>
 {% endblock %}
