@@ -163,13 +163,10 @@
       <a href="{% url 'project_add' %}">New Project</a>
       </li>
       <li>
-      <a href="#gallery">Gallery</a>
+      <a href="#slider">Slide Show</a>
       </li>
       <li>
-      <a href="#slider">Testimonials</a>
-      </li>
-      <li>
-      <a href="#faq">FAQ</a>
+      <a href="{% url 'profile' request.user.id %}">profile</a>
       </li>
       <li>
       <a href="{% url 'logout' %}">LogOut</a>

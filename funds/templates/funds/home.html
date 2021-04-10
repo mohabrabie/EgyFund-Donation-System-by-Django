@@ -136,7 +136,7 @@ active
   </section>
   <!-- slide show
 	================================================== -->
-<section id="about" class="parallax section" style="background-image: url(http://themepush.com/demo/runcharity/assets/img/1.jpg);">
+<section id="slider" class="parallax section" style="background-image: url(http://themepush.com/demo/runcharity/assets/img/1.jpg);">
   <div class="wrapsection">
     <div class="parallax-overlay" style="background-color: #01b0d1;opacity:0.9;"></div>
     <div class="container">
@@ -272,9 +272,9 @@ active
               <a href="{% url 'project_read' p.project.id %}" title="This is the description">
                 <img src="{{ p.img.image.url }}" alt="" style="width: 300px;height: 200px;">
                 <div class="description">
-                  <span class="caption" style="background-color: azure;font-size: 20px;">
-                    {{ p.project.title }}
-                    <b style="margin-left: 80px;">{{ p.project.start_date }}</b>
+                  <span class="caption" style="background-color: azure;font-size: 20px;margin-left: 30px;">
+                    {{ p.project.title }}&nbsp;&nbsp;&nbsp;
+                    <b>{{ p.project.start_date }}</b>
                     <span class="camera"><i class="fa fa-camera"></i></span>
                   </span> 
                   
