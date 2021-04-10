@@ -67,7 +67,7 @@
         <!-- Author -->
         <p class="lead">
           by
-          <a href="#">{{ project_data.user.username }}</a>
+          <a href="{%  url 'profile' project_data.user.id %}">{{ project_data.user.username }}</a>
         </p>
 
         <hr>
@@ -90,9 +90,9 @@
                 <p><span class="font-weight-bold">Total Donations: </span>{{ project_donations.donation__sum }} $ </p>
                 {% if not  session_user.id == project_data.user.id %}
                 <div class="doantion-form">
-                    <button type="submit" class="btn btn-success  font-weight-bold " data-toggle="modal" data-target="#exampleModal">Donate</button>
+                    <button type="submit" class="btn btn-success  font-weight-bold " data-toggle="modal" data-target="#donationModal">Donate</button>
 
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="donationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -295,16 +295,16 @@
           <div class="media-body">
             <h5 class="mt-0 font-weight-bold text-dark">{{comment.user.username}}</h5>
             <p>{{ comment.comment }}</p>
-            <a href="#" class="card-link float-right " data-toggle="modal" data-target="#exampleModalLong">Report</a>
+            <a href="#" class="card-link float-right " data-toggle="modal" data-target="#commentReportModal-{{ comment.id }}">Report</a>
           </div>
         </div>
         <hr>
 
-        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal fade" id="commentReportModal-{{ comment.id }}" tabindex="-1" role="dialog" aria-labelledby="commentReportModalTitle" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <h5 class="modal-title" id="commentReportModalTitle">Report Comment</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -428,14 +428,14 @@
             
           
 
-            <button type="submit" class="btn btn-danger btn-lg font-weight-bold" data-toggle="modal" data-target="#exampleModal">Report Project</button>
+            <button type="submit" class="btn btn-danger btn-lg font-weight-bold" data-toggle="modal" data-target="#reportProjectModal">Report Project</button>
         
         
           </div>
 
 
           <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="reportProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">

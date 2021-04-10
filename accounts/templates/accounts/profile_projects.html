@@ -69,7 +69,7 @@
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>{{ project.title }}</td>
-                                    <td><a href="#">Visit</a></td>
+                                    <td><a href="{% url 'project_read' project.id %}">Visit</a></td>
                                 </tr>
                             {% endfor %}
                         </tbody>
