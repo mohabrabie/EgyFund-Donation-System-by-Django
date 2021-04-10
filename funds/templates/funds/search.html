@@ -10,27 +10,48 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-   
+    
   }
-  
+  .result{
+    margin: 20px;
+    width: 150px;
+  }
   .result a:hover, .result a:active {
     background-color: red;
   }
+
 </style>
-    <center>
-        {% if searched %}
-            <h1>You searched for {{ searched }}</h1>
-            <br>
-            {% for project in projects %}
-            <div class="result">
-                <a href="{% url 'project_read' project.id %}">
-                    {{ project }}
-                </a> <br>
-            </div>
-            {% endfor %}
-        {% else %}
-                <h1>You forgot to search for a project...</h1>
-        {% endif %}
+
         
-    </center>
+
+    <section id="latest" class="parallax section" style="background-image: url(http://themepush.com/demo/runcharity/assets/img/6.jpg);">
+        <div class="wrapsection">
+          <div class="parallax-overlay" style="background-color:rgb(5, 32, 187);opacity:0.9;"></div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12 sol-sm-12">
+                <div class="maintitle">
+                  <h3 class="section-title">Search reasults</h3>
+                  <p class="lead wow flipInX">
+                    You searched for {{ searched }}
+                  </p>
+                </div>
+              </div>
+              <center>
+                {% if searched %}
+                {% for project in projects %}
+                    <div class="result col-md-2">
+                        <a href="{% url 'project_read' project.id %}">
+                            {{ project }}
+                        </a> <br>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <h1>You forgot to search for a project ...</h1>
+                {% endif %}
+              </center>
+            </div>
+          </div>
+        </div>
+        </section>
 {% endblock %}
