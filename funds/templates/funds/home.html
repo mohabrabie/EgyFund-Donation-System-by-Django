@@ -288,16 +288,34 @@ active
       </div>
     </div>
     </section>
-
-
-    {% for cat in category %}
-      <div>
-        <a href="{% url 'project_cat' cat.id %}">
-          {{ cat.name }}
-      </a>
-
+<!-- Categories
+	================================================== -->
+  <section id="latest" class="parallax section" style="background-image: url(http://themepush.com/demo/runcharity/assets/img/6.jpg);">
+    <div class="wrapsection">
+      <div class="parallax-overlay" style="background-color:rgb(5, 32, 187);opacity:0.9;"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 sol-sm-12">
+            <div class="maintitle">
+              <h3 class="section-title">Categories</h3>
+              <p class="lead wow flipInX">
+                These are all the Categories we have !
+              </p>
+            </div>
+          </div>
+          {% for cat in category %}
+          <div class="col-md-4 cat_div">
+            <a href="{% url 'project_cat' cat.id %}">
+              {{ cat.name }}
+          </a>
+          </div>
+        {% endfor %}
+        </div>
       </div>
-    {% endfor %}
+    </div>
+    </section>
+
+
 
 {% endblock %}
 
