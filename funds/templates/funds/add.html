@@ -5,38 +5,40 @@
     New Project
 {% endblock %}
 
-{% block new_active %} 
-active
-{% endblock %}
-
 
 {% block content %}
-    <div class="container">
-        <form id="form-container" action="{% block form_action %} {% url 'project_add' %} {% endblock %}" method="POST"
-            enctype="multipart/form-data">
-
-            {% csrf_token %}
-            {% for hidden in project_form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-
-            {{ project_form|crispy }}
-
-            {{ formset.management_form }}
-            {% for form in formset %}
-                <div class="bird-form">
-                    {{ form|crispy }}
-                </div>
-            {% endfor %}
-
-            <button type='button' class="btn btn-primary" id="add-form" max="{{ formset.max_num }}">Add more image</button>
-
-            <input type="submit" class="btn btn-success" value="{% block btn_value %} Create {% endblock %}" />
-
-        </form>
+<section id="latest" class="parallax section" style="background-image: url(http://themepush.com/demo/runcharity/assets/img/6.jpg);">
+    <div class="wrapsection">
+      <div class="parallax-overlay" style="background-color:#1a7474;opacity:0.9;"></div>
+      <div class="container">
+        <div class="row">
+          <div class="container">
+            <form id="form-container" action="{% block form_action %} {% url 'project_add' %} {% endblock %}" method="POST"
+                enctype="multipart/form-data">
+    
+                {% csrf_token %}
+                {% for hidden in project_form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+    
+                {{ project_form|crispy }}
+    
+                {{ formset.management_form }}
+                {% for form in formset %}
+                    <div class="bird-form">
+                        {{ form|crispy }}
+                    </div>
+                {% endfor %}
+    
+                <button type='button' class="btn btn-primary" id="add-form" max="{{ formset.max_num }}">Add more image</button>
+    
+                <input type="submit" class="btn btn-success" value="{% block btn_value %} Create {% endblock %}" />
+    
+            </form>
+        </div>
+        </div>
+      </div>
     </div>
-
-
-
+    </section>
 
 {% endblock %}
