@@ -2,17 +2,8 @@
 <html lang="en">
 <head>
     <style>
-      .fill {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden
-      }
-      .fill img {
-          flex-shrink:   0;
-          min-width:  100%;
-          min-height: 100%;
-      }
+    
+     
     </style>
     	<!-- Meta, title, CSS, favicons, etc. -->
 	<meta charset="utf-8">
@@ -30,18 +21,10 @@
 	<!-- Fonts -->
 	<link href='http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700,800' rel='stylesheet' type='text/css'>
 
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-	<![endif]-->
-			
-	<!-- Favicon -->
 	<link rel="shortcut icon" href="#">
 </head>
 <body>
-  <div id="parallax">
-  </div>
+  
 <header id="header" class="navbar navbar-inverse navbar-fixed-top" role="banner">
   <div class="container">
     <div class="navbar-header">
@@ -64,12 +47,12 @@
       <a href="{% url 'project_add' %}">New Project</a>
       </li>
       <li>
-      <a href="#slider">Slide Show</a>
+      <a href="#gallery">Gallery</a>
       </li>
       <li>
-      <a href="{% url 'profile' request.user.id %}">profile</a>
+      <a href="#slider">Testimonials</a>
       </li>
-      <li id="search" >
+      <li id="search">
         <nav class="navbar navbar-light bg-light">
           <form class="form-inline" method =POST action="{% url 'egyfund' %}">
             {% csrf_token %}
@@ -101,28 +84,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script>
-  var slideIndex = 1;
-  showDivs(slideIndex);
 
-  function plusDivs(n) {
-    showDivs(slideIndex += n);
-  }
-
-  function showDivs(n) {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    var y = document.getElementsByClassName("text-block");
-    if (n > x.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = x.length}
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";
-      y[i].style.display = "none";
-    }
-    x[slideIndex-1].style.display = "block";
-    y[slideIndex-1].style.display = "block";
-  }
   </script>
-    <script src="{% static 'js/add-image.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-3.6.0.js' %}"></script>
 </body>
 </html>

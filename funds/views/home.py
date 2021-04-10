@@ -48,6 +48,7 @@ def get_all_data():
 @login_required
 def index(request):
     if request.method == 'POST':
+        projects_searched = []
         category_id = request.POST.get("category", None)
         if category_id:
             Projects_by_category = Project.objects.prefetch_related('category').filter(category=category_id)
@@ -60,13 +61,30 @@ def index(request):
         searched = request.POST.get('searched').strip()
         if searched:
             for project in projects:
-                if searched in project.tags.names() or project.title:
-            
-                    return render(request, 'funds/search.html', {'searched': searched,
-                                                         'projects': projects})
+                if (searched in project.tags.names()) or (searched in project.title):
+                    projects_searched.append(project)
+            return render(request, 'funds/search.html', {'searched': searched,
+                                                         'projects': projects_searched})
         return render(request, 'funds/search.html',{})
     else:
         context = get_all_data()
         return render(request, 'funds/home.html', context)
+
+def listCategoryProjects(request,category_id):
+    print("**************** jsaaskdjksjdkdsad")
+    print(category_id)
+    print("**************** jsaaskdjksjdkdsad")
+    projects_category = Project.objects.all().filter(category=category_id)
+    print("**************** jsaaskdjksjdkdsad")
+    print(projects_category)
+    print("****************djakjdkasjdkjsdkjdsk")
+    context = {
+        'projects_category': projects_category,
+    }
+
+
+
+    return render(request,'funds/projectsByCat.html', context)
+
 
 
