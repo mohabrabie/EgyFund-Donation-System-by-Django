@@ -67,7 +67,7 @@
         <!-- Author -->
         <p class="lead">
           by
-          <a href="#">{{ project_data.user.username }}</a>
+          <a href="{%  url 'profile' project_data.user.id %}">{{ project_data.user.username }}</a>
         </p>
 
         <hr>

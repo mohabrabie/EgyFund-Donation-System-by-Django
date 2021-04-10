@@ -178,8 +178,6 @@ def read(request, project_id):
             ratingObj.save()
            
         
-            
-
         
         return redirect('project_read', project_id=project_id)
 
@@ -198,3 +196,4 @@ def tagged(request):
         'posts': projects,
     }
     return render(request, 'home.html', context)
+
