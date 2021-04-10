@@ -304,11 +304,9 @@ active
             </div>
           </div>
           {% for cat in category %}
-          <div class="col-md-4 cat_div">
-            <a href="{% url 'project_cat' cat.id %}">
+            <a href="{% url 'project_cat' cat.id %}" class="col-md-4 cat_div">
               {{ cat.name }}
           </a>
-          </div>
         {% endfor %}
         </div>
       </div>
