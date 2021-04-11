@@ -79,7 +79,7 @@ python3 manage.py migrate
 python3 manage.py runserver
 ```
 
-#To Build an image and run it type the following commands:
+##To Build an image and run it type the following commands:
 
 Docker commands: (Host user and host password are related to the email confirmation link "GMAIL RECOMMENDED")
 
@@ -97,4 +97,4 @@ docker run -d -p 8081:8000 --name=egyfund egyfund:v1.0.0.
 - Mostafa Mowaad
 - Shehab El Deen
 - Mohab Rabie
-- AHmed Zakaria
+- Amed Zakaria
