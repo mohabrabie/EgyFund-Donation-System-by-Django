@@ -81,7 +81,7 @@ def show_all(request):
 def delete(request, project_id):
     project = get_object_or_404(Project, id=project_id)
     project.delete()
-    return redirect('myprojects')
+    return redirect('egyfund')
 
 
 @login_required
