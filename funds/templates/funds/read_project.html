@@ -318,10 +318,10 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="{ forloop.counter0 }}" class="{% if forloop.counter0 == 0 %}active{% endif %}"></li>    
             {% endfor %}
           </ol>
-          <div class="carousel-inner">
+          <div class="carousel-inner" style=" width:100%; height: 400px !important;">
             {% for project_image in project_images %}
               <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
-                <img src="{{ project_image.image.url }}" class="d-block w-100" >
+                <img src="{{ project_image.image.url }}" class="d-block w-100 h-50" >
               </div>
             {% endfor %}
           </div>
