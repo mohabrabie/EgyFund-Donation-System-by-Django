@@ -45,13 +45,14 @@ def get_all_data():
         }
     else:
         context = {
-              'latest_projects': None,
-              'first_project': None,
-              'top_projects': None,
-              'all_projects': None,
-              'category': None,
+              'latest_projects': [],
+              'first_project': [],
+              'top_projects': [],
+              'all_projects': [],
+              'category': [],
               'Projects_by_category': None,
         }
+        print("no data here ")
     return context
 
 
@@ -80,14 +81,12 @@ def index(request):
         context = get_all_data()
         return render(request, 'funds/home.html', context)
 
-def listCategoryProjects(request,category_id):
+
+def listCategoryProjects(request, category_id):
     projects_category = Project.objects.all().filter(category=category_id)
     context = {
         'projects_category': projects_category,
     }
-
-
-
     return render(request,'funds/projectsByCat.html', context)
 
 

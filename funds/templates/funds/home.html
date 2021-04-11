@@ -73,6 +73,7 @@ active
                 </a>
                 </div>
               </div>
+              {% if top_projects != None %}
               {%  for p in top_projects %}
               {% if p.img  != None %}
               <div class="item fill">
@@ -93,6 +94,7 @@ active
               </div>
               {% endif %}
               {% endfor %}
+              {% endif %}
             </div>
           </div>
             <!-- Controls -->
@@ -123,6 +125,7 @@ active
               </p>
             </div>
           </div>
+          {% if all_projects != None %}
             {% for p in all_projects %}
             {% if p.project.is_featured %}
             <div class="col-md-4" style="margin-bottom: 20px;">
@@ -142,6 +145,7 @@ active
             </div>
               {% endif %}
             {% endfor %}
+          {% endif %}
         </div>
       </div>
     </div>
@@ -161,6 +165,7 @@ active
               </p>
             </div>
           </div>
+          {% if latest_projects != None %}
           {% for p in latest_projects %}
           {% if p.img != None %}  
             <div class="col-md-4" style="margin-bottom: 20px;">
@@ -179,6 +184,7 @@ active
             </div>
           {% endif %}
           {% endfor %}
+          {% endif %}
         </div>
       </div>
     </div>
@@ -196,7 +202,8 @@ active
               <p class="lead wow flipInX">
                 These are all the Categories we have !
               </p>
-            </div>  
+            </div>
+        {% if category != None %}
         {% for cat in category %}
         </div class="cat_div">
             <a href="{% url 'project_cat' cat.id %}" class="col-md-4">
@@ -204,6 +211,7 @@ active
           </a>
         </div>
         {% endfor %}
+        {% endif %}
       </div>
     </div>
     </section>
