@@ -58,6 +58,8 @@ active
           
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
+              {% if first_project%}
+
               <div class="item active fill">
                 <img src="{{ first_project.img.image.url }}" alt="first slide">
                 <div class="carousel-caption">
@@ -73,6 +75,9 @@ active
                 </a>
                 </div>
               </div>
+
+              {% endif %}
+              
               {% if top_projects != None %}
               {%  for p in top_projects %}
               {% if p.img  != None %}
