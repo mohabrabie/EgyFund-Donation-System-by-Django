@@ -53,7 +53,7 @@ Search bar tht enables users to search projects by title or tag
 ## Installation
 
 ```sh
-OS centos
+OS centos Or Ubuntu
 ```
 ```sh
 program VScode
