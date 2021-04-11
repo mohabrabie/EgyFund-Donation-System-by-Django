@@ -3,7 +3,7 @@
 {% block title %}
     Home
 {% endblock %}
-{% block home_active %} 
+{% block home_active %}
 active
 {% endblock %}
 {% block content %}
@@ -61,18 +61,20 @@ active
               {% if first_project%}
 
               <div class="item active fill">
-                <img src="{{ first_project.img.image.url }}" alt="first slide">
+<!--                <img src="{{ first_project.img.image.url }}" alt="first slide">-->
                 <div class="carousel-caption">
                   <div style="margin-bottom: 20px;">
+                  {% if first_project != None %}
                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                     &nbsp;&nbsp;&nbsp;{{ first_project.rate }}<br>
                   </div>
                   <a href="{% url 'project_read' first_project.project.id %}">
-                  <button type="button" class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                    &nbsp;&nbsp;&nbsp;{{ first_project.project.title }} 
-                  </button>
-                </a>
+                    <button type="button" class="btn btn-default btn-lg">
+                      <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                      &nbsp;&nbsp;&nbsp;{{ first_project.project.title }}
+                    </button>
+                  </a>
+                  {% endif %}
                 </div>
               </div>
 
@@ -94,7 +96,7 @@ active
                       &nbsp;&nbsp;&nbsp;{{ p.project.title }}
                     </button>
                   </a>
-                    
+
                 </div>
               </div>
               {% endif %}
@@ -141,10 +143,10 @@ active
                       <span class="caption" style="font-size: 20px;background-color: antiquewhite;margin-left: 90px;padding: 3px;">
                         {{ p.project.title }}
                         <span class="glyphicon glyphicon-leaf" style="margin-left: 20px;"></span>
-                      </span> 
-                      
+                      </span>
+
                       <div class="clearfix"></div>
-                    </div>	
+                    </div>
                     {% endif %}
               </a>
             </div>
@@ -172,7 +174,7 @@ active
           </div>
           {% if latest_projects != None %}
           {% for p in latest_projects %}
-          {% if p.img != None %}  
+          {% if p.img != None %}
             <div class="col-md-4" style="margin-bottom: 20px;">
               <a href="{% url 'project_read' p.project.id %}" title="This is the description">
                 <img src="{{ p.img.image.url }}" alt="" style="width: 300px;height: 200px;">
@@ -181,10 +183,10 @@ active
                     {{ p.project.title }}&nbsp;&nbsp;&nbsp;
                     <b>{{ p.project.start_date }}</b>
                     <span class="camera"><i class="fa fa-camera"></i></span>
-                  </span> 
-                  
+                  </span>
+
                   <div class="clearfix"></div>
-                </div>			
+                </div>
               </a>
             </div>
           {% endif %}

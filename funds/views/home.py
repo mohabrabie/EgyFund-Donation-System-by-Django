@@ -46,7 +46,7 @@ def get_all_data():
     else:
         context = {
               'latest_projects': [],
-              'first_project': [],
+              'first_project': None,
               'top_projects': [],
               'all_projects': [],
               'category': [],
