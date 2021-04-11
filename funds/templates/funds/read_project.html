@@ -53,6 +53,7 @@
     </div>
   </nav>
 
+
   <!-- Page Content -->
   <div class="container">
 
@@ -253,7 +254,7 @@
 
         <hr class="mt-2 mb-5">
 
-        <div class="row text-center text-lg-left">
+         <div class="row text-center text-lg-left">
 
 
           {% for project_image in project_images %}
@@ -263,7 +264,40 @@
           {% endfor %}
 
 
+        </div> 
+
+        <br><br><br>
+
+  
+
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            
+            {% for project_image in project_images %}
+                <li data-target="#carouselExampleIndicators" data-slide-to="{ forloop.counter0 }}" class="{% if forloop.counter0 == 0 %}active{% endif %}"></li>    
+            {% endfor %}
+          </ol>
+          <div class="carousel-inner">
+            {% for project_image in project_images %}
+              <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+                <img src="{{ project_image.image.url }}" class="d-block w-100" >
+              </div>
+            {% endfor %}
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
+
+
+
+
 
         <hr>
 
@@ -427,9 +461,10 @@
           {% endif %}
             
           
+            {% if not  session_user.id == project_data.user.id %}            
+               <button type="submit" class="btn btn-danger btn-lg font-weight-bold" data-toggle="modal" data-target="#reportProjectModal">Report Project</button>
 
-            <button type="submit" class="btn btn-danger btn-lg font-weight-bold" data-toggle="modal" data-target="#reportProjectModal">Report Project</button>
-        
+            {% endif %}
         
           </div>
 

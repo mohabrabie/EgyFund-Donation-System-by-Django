@@ -124,16 +124,16 @@ def read(request, project_id):
     
     similar_projects = Project.objects.filter(tags__in=Project.objects.filter(pk=project_id).values_list('tags')).exclude(pk=project_id).all().distinct()[:4]
 
-    context = {'project_data': project,
-            'project_images': images,
-            'project_ratings': ratings,
-            'project_ratings_count': ratings_count,
-            'project_ratings_count_per_user': ratings_count_user_final,
-            'project_donations': donations,
-            'project_comments': comments,
-            'project_target_percent': total_target_percent,
-            'similar_projects': similar_projects,
-            'session_user': request.user}
+    context = { 'project_data': project,
+                'project_images': images,
+                'project_ratings': ratings,
+                'project_ratings_count': ratings_count,
+                'project_ratings_count_per_user': ratings_count_user_final,
+                'project_donations': donations,
+                'project_comments': comments,
+                'project_target_percent': total_target_percent,
+                'similar_projects': similar_projects,
+                'session_user': request.user}
 
     
 
