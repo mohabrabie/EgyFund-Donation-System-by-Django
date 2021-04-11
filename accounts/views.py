@@ -10,6 +10,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
 from django_countries import countries
 from datetime import datetime
+import re
 
 # Create your views here.
 from .forms import CreateUserForm
@@ -32,6 +33,9 @@ def register(request):
                 user = user_form.save(commit=False)
                 #
                 user.is_active = False
+                if request.FILES:
+                    image = request.FILES['image']
+                    user.image = image
                 user.save()
 
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
@@ -132,8 +136,13 @@ def profile(request, user_id):
             image = request.FILES['image']
             user.image = image
         # Checking if data to update is valid
-        if not username or not first_name or not last_name or not phone_number:
-            messages.error(request, "Username, First name, Last name and Phone can't be empty!")
+        phone_regex = '^(010|011|012)[0-9]{o}$'
+        # if re.match(phone_regex, phone_number) is not None:
+        #     print("The text is as you expected!")
+        # else:
+        #     print("The text is not as you expected!")
+        if not username or not first_name or not last_name or not phone_number or re.match(phone_regex, phone_number) is None:
+            messages.error(request, "Invalid data. Please check there are no empty fields and phone is a valid phone!")
         else:  # Form is valid
             user.username = username
             user.first_name = first_name
