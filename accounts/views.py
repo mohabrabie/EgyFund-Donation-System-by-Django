@@ -136,7 +136,7 @@ def profile(request, user_id):
             image = request.FILES['image']
             user.image = image
         # Checking if data to update is valid
-        phone_regex = '^(010|011|012)[0-9]{o}$'
+        phone_regex = '^(010|011|012)[0-9]{8}$'
         # if re.match(phone_regex, phone_number) is not None:
         #     print("The text is as you expected!")
         # else:
@@ -156,7 +156,8 @@ def profile(request, user_id):
                 user.birth_date = datetime.strptime(birth_date, "%Y-%m-%d")
             user.facebook_profile = facebook_profile
             user.country = country
-            user.image = image
+            if image is not None:
+                user.image = image
             user.save()
             messages.success(request, "Profile Updated Successfully.")
 
