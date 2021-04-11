@@ -70,7 +70,7 @@
                                 <td>{{ donation.project.title }}</td>
                                 <td>{{ donation.donation }}$</td>
                                 <td>{{ donation.date }}</td>
-                                <td><a href="{% url 'project_read' project.id %}">Visit</a></td>
+                                <td><a href="{% url 'project_read' donation.project.id %}">Visit</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
