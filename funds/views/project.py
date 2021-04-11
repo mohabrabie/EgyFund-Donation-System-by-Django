@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 from taggit.models import Tag
+from django.contrib import messages
+import datetime
 
 from funds.forms import ProjectForm, ProjectPictureForm
 from funds.models.comment import Comment
@@ -22,6 +24,28 @@ def create(request):
     if request.method == 'POST':
         project_form = ProjectForm(request.POST or None)
         formset = ProjectPictureFormSet(request.POST or None, request.FILES or None, queryset=ProjectPicture.objects.none())
+
+        # Checking if form is valid
+        title = request.POST['title']
+        details = request.POST['details']
+        category = request.POST['category']
+        tags = request.POST['tags']
+        total_target = request.POST['total_target']
+        start_date = request.POST['start_date']
+        end_date = request.POST['end_date']
+        if not title or not details or not category or not tags or not total_target or not start_date or not end_date:
+            messages.error(request, "No field can be empty!")
+            return redirect("project_add")
+        if datetime.datetime.strptime(start_date, "%Y-%m-%d").ctime() >= datetime.datetime.strptime(end_date, "%Y-%m-%d").ctime():
+            messages.error(request, "Invalid start and end date!")
+            return redirect("project_add")
+        if int(total_target) < 1:
+            messages.error(request, "Invalid target!")
+            return redirect("project_add")
+        if len(request.FILES) == 0:  # No images entered
+            messages.error(request, "A project must contain at least one image!")
+            return redirect("project_add")
+
 
         if project_form.is_valid() and formset.is_valid():
             project_instance = project_form.save(commit=False)

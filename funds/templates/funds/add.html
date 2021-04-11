@@ -7,12 +7,38 @@
 
 
 {% block content %}
+
 <section id="latest" class="parallax section" style="background-image: url(http://themepush.com/demo/runcharity/assets/img/6.jpg);">
     <div class="wrapsection">
       <div class="parallax-overlay" style="background-color:#1a7474;opacity:0.9;"></div>
       <div class="container">
         <div class="row">
           <div class="container">
+              <!-- Messages Section -->
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                            <div class="alert alert-primary" role="alert">
+                            {{ message }}
+                            </div>
+                        {% endif %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                        <div class="alert alert-warning" role="alert">
+                            {{ message }}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             <form id="form-container" action="{% block form_action %} {% url 'project_add' %} {% endblock %}" method="POST"
                 enctype="multipart/form-data">
     
