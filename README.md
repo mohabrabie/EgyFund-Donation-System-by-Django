@@ -53,10 +53,10 @@ Search bar tht enables users to search projects by title or tag
 ## Installation
 
 ```sh
-OS centos Or Ubuntu
+OS: Cross Platform
 ```
 ```sh
-program VScode
+IDEs Recommended: VSCode or IntelliJ
 ```
 ## Development setup
 install virtualenv  then activate it and install all dependences which in requirements.txt
