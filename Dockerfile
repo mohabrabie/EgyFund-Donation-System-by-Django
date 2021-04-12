@@ -1,3 +1,4 @@
+FROM python:3.8
 ENV EMAIL_HOST_VALUE="smtp.gmail.com"
 ARG host_user
 ARG host_passwd
