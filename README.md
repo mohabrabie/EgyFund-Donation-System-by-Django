@@ -81,9 +81,7 @@ python3 manage.py runserver
 
 ## To Build an image and run it type the following commands:
 
-```sh
-Docker commands: (Host user and host password are related to the email confirmation link "GMAIL RECOMMENDED")
-```
+### Docker commands: (Host user and host password are related to the email confirmation link "GMAIL RECOMMENDED")
 ```sh
 docker build --build-arg host_user="YOUR EMAIL"[REQUIRED] --build-arg host_passwd="YOUR PASSWORD"[REQUIRED] --build-arg admin_username="YOUR USERNAME"[OPTIONAL] --build-arg admin_pass="YOUR PASSWORD"[OPTIONAL] --build-arg admin_email="YOUR EMAIL"[OPTIONAL] -t egyfund:v1.0.0
 ```
