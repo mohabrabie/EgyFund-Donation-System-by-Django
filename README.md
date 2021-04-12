@@ -88,7 +88,7 @@ docker build --build-arg host_user="YOUR EMAIL"[REQUIRED] --build-arg host_passw
 ```
 Sample: 
 ```sh
-sudo docker build --build-arg host_user=aegyfund@gmail.com --build-arg host_passwd=R503abc! --build-arg admin_username=admin --build-arg admin_pass=egyfund --build-arg admin_email=shehab33@yahoo.com -t egyfund:v1.0.0 .
+docker build --build-arg host_user=aegyfund@gmail.com --build-arg host_passwd=R503abc! --build-arg admin_username=admin --build-arg admin_pass=egyfund --build-arg admin_email=shehab33@yahoo.com -t egyfund:v1.0.0 .
 ```
 2- Run your container:
 ```sh
