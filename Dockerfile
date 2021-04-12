@@ -1,7 +1,7 @@
 FROM python:3.8
 ENV EMAIL_HOST_VALUE="smtp.gmail.com"
 ARG host_user = 'mohab@gmail.com'
-ARG host_passwd
+ARG host_passwd = ''
 ARG admin_username="admin"
 ARG admin_pass="egyfund"
 ARG admin_email=$host_user
