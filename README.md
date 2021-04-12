@@ -22,11 +22,11 @@ activation. The activation link should expire after 24 hours.
 and password
 
 ####  profile :
-- user can view his profile
-- user can view his projects
-- user can view his donations
-- user can edit all his data except for the email
-- user can have extra optional info other than the info he added
+- User can view his profile
+- User can view his projects
+- User can view his donations
+- User can edit all his data except for the email
+- User can have extra optional info other than the info he added
 while registration (Birthdate, facebook profile, country)
 - User can delete his account (Note that there must be a
 confirmation message before deleting)
