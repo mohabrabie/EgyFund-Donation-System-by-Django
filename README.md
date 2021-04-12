@@ -79,18 +79,20 @@ python3 manage.py migrate
 python3 manage.py runserver
 ```
 
-##To Build an image and run it type the following commands:
+## To Build an image and run it type the following commands:
 
+```sh
 Docker commands: (Host user and host password are related to the email confirmation link "GMAIL RECOMMENDED")
-
-docker build --build-arg host_user="YOUR EMAIL"[REQUIRED] --build-
-arg host_passwd="YOUR PASSWORD"[REQUIRED] --build-arg
-admin_username="YOUR USERNAME"[OPTIONAL] --build-arg 
-admin_pass="YOUR PASSWORD"[OPTIONAL] --build-arg 
-admin_email="YOUR EMAIL"[OPTIONAL] -t egyfund:v1.0.0
+```
+```sh
+docker build --build-arg host_user="YOUR EMAIL"[REQUIRED] --build-arg host_passwd="YOUR PASSWORD"[REQUIRED] --build-arg admin_username="YOUR USERNAME"[OPTIONAL] --build-arg admin_pass="YOUR PASSWORD"[OPTIONAL] --build-arg admin_email="YOUR EMAIL"[OPTIONAL] -t egyfund:v1.0.0
+```
+```sh
 docker run -d -p 8081:8000 --name=egyfund egyfund:v1.0.0.
+```
 
-
+## Note: 
+If you are going to provide your own host email you have set less secure app to true in https://www.google.com/settings/security/lesssecureapps
 
 # Contributers
 - Ahmed Khaled.
