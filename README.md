@@ -88,7 +88,7 @@ docker build --build-arg host_user="YOUR EMAIL"[REQUIRED] --build-arg host_passw
 ```
 2- Run your container:
 ```sh
-docker run -d -p 8081:8000 --name=egyfund egyfund:v1.0.0.
+docker run -d -p 8081:8000 --name=egyfund egyfund:v1.0.0
 ```
 
 ## Note: 
