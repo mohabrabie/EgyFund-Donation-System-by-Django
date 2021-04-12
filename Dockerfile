@@ -1,6 +1,11 @@
 FROM python:3.8
 ENV EMAIL_HOST_VALUE="smtp.gmail.com"
 WORKDIR /usr/src/egyfundapp
+ARG host_user
+ARG host_passwd
+ARG admin_username="admin"
+ARG admin_pass="egyfund"
+ARG admin_email=$host_user
 COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8000
