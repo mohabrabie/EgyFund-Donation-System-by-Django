@@ -93,8 +93,8 @@ docker run -d -p 8081:8000 --name=egyfund egyfund:v1.0.0.
 
 
 # Contributers
-- Ahmed Khaled
-- Mostafa Mowaad
-- Shehab El Deen
-- Mohab Rabie
-- Amed Zakaria
+- Ahmed Khaled.
+- Mostafa Mowaad.
+- Shehab El Deen Alalkamy.
+- Mohab Rabie.
+- Amed Zakaria.
